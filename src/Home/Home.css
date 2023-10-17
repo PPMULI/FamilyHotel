@@ -1,0 +1,1317 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Work+Sans:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Open+Sans:wght@300&family=Work+Sans:wght@100&display=swap');
+
+/* home component start */
+.bgbackgroundfood {
+    background-image: url("../Images/foodBackground.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 550px;
+    background-position: center;
+}
+
+.addrestraurant {
+    color: whitesmoke;
+    text-align: right;
+    margin-right: 50px;
+    display: flex;
+    padding-top: 20px;
+}
+
+.addrestraurant:hover {
+    cursor: pointer;
+    color: red;
+}
+
+.familyfood {
+    color: white;
+    font-size: xx-large;
+    letter-spacing: 5px;
+    text-align: center;
+    margin-top: 140px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.fooddescription {
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.nav1 {
+    margin-right: 30px;
+}
+
+.nav2 {
+    box-shadow: 3px 3px 3px 3px gray;
+    margin-top: 10px;
+    position: fixed;
+    z-index: 10;
+    top: -10px;
+    width: 100%;
+}
+
+.qualityheading {
+    text-align: center;
+    margin-top: 125px;
+    margin-bottom: 125px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    letter-spacing: 2px;
+    font-size: 60px;
+    text-decoration-style: wavy;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.cardrow {
+    background-color: #ececec;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+}
+
+/* Home component end */
+
+/* Quality page start */
+#foodtitle {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#foodimage {
+    min-height: 390px;
+    border-radius: 20px;
+}
+
+#orderfood {
+    width: 100%;
+}
+
+.foodcard:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+#foodcard {
+    border-radius: 20px;
+    box-shadow: 5px 5px #d3d3d3;
+}
+
+/* Quality page end */
+
+/* Contactnav start */
+.navigation-item-link {
+    margin: auto;
+    padding: 0px 30px 0px 30px;
+}
+
+.contact-nav {
+    position: fixed;
+    width: 100%;
+    z-index: 45;
+}
+
+.contact_nav_items {
+    color: white;
+    padding: 20px;
+    font-weight: 800;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.contact_nav_items:hover {
+    /* background-color: ; */
+    transform: scale(1.1);
+    color: blue;
+}
+
+@media screen and (max-width: 992px) {
+    .contact_nav_items {
+        color: black;
+    }
+}
+
+/* Contactnav end */
+
+/* Contact page start */
+.bgcontact {
+    background-image: url("../Images/restraurant.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 550px;
+    background-position: center;
+    position: relative;
+    z-index: 40;
+    opacity: 0.8;
+}
+
+.restraurantheading {
+    color: whitesmoke;
+    text-align: center;
+    padding-top: 150px;
+    letter-spacing: 2px;
+    word-spacing: 5px;
+    text-decoration: underline;
+    font-family: 'Times New Roman', Times, serif;
+    text-decoration-style: wavy;
+}
+
+.restraurantheading:hover {
+    transform: scale(1.09);
+    cursor: pointer;
+    color: rebeccapurple;
+}
+
+.hotel {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    padding: 10px;
+    letter-spacing: 5px;
+}
+
+.hotel:hover {
+    cursor: pointer;
+}
+
+.contactcard {
+    margin-left: 20px;
+    position: relative;
+    z-index: 50;
+    bottom: 100px;
+}
+
+.contactsubcard {
+    box-shadow: 0px 7px 0px blue;
+    border: 2px solid black;
+    min-height: 320px;
+}
+
+.contactsubcard:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.contact_icon:hover {
+    background-color: gray;
+    border-radius: 20px;
+    color: wheat;
+    padding-left: 10px;
+    transform: scale(1.05);
+}
+
+.contact {
+    padding: 70px;
+    padding-top: 0px;
+}
+
+.contactsupport {
+    height: 160px;
+}
+
+.contact_card_title {
+    text-align: center;
+    color: blue;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.contacts {
+    height: 150px;
+    padding: 10px;
+}
+
+.form {
+    border: none;
+    position: relative;
+    bottom: 10px;
+    top: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#form {
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px 5px gray;
+    margin-bottom: 50px;
+}
+
+#form:hover {
+    transform: scale(1.01);
+}
+
+.label {
+    text-align: center;
+    opacity: 0.5;
+}
+
+.contactform_heading {
+    text-align: center;
+    position: relative;
+    bottom: 50px;
+    padding: 5px;
+    color: blue;
+    letter-spacing: 2px;
+    word-spacing: 5px;
+}
+
+.contactform_heading:hover {
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+.formbutton {
+    border-radius: 50px;
+    width: 30%;
+}
+
+.form_button {
+    text-align: center;
+}
+
+.formbutton:hover {
+    background-color: green;
+    transform: scale(1.05);
+    overflow-y: scroll;
+    color: white;
+}
+
+/* Contact page ends */
+/* Transport nav start */
+.logoimage {
+    height: 45px;
+    width: 45px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 10px;
+}
+
+.logoimage:hover {
+    transform: scale(1.05);
+}
+
+.transportnav {
+    color: white;
+    margin-right: 10px;
+}
+
+.transportnav_items {
+    margin-left: 53rem;
+}
+
+/* Transport nav ends */
+
+/* Transport page startr */
+.bgbus {
+    background-image: url("../Images/Bus.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 550px;
+    background-position: center;
+    max-height: 500px;
+    min-height: 200px;
+}
+
+.transporttitle {
+    color: white;
+    text-align: center;
+    padding-top: 80px;
+}
+
+.buscard {
+    margin-top: 150px;
+    border: 2px solid black;
+    position: relative;
+    bottom: 90px;
+}
+
+.transportbutton {
+    width: 100%;
+}
+
+/* Transport page ends */
+
+/* Transportoptions start */
+.transportoptions {
+    color: white;
+    text-align: center;
+}
+
+.transportoptionbutton {
+    width: 100%;
+    border-radius: 50px;
+}
+
+/* Transport-options end */
+/* Menuicard page coading start */
+.menu {
+    text-align: center;
+    letter-spacing: 5px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.menuitems {
+    border: 2px solid black;
+    padding: 20px;
+    box-shadow: 5px 5px 5px 5px gray;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+/* menu card coading end */
+
+/* card start */
+.menucard {
+    margin: 5px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: all 0.5s ease;
+    transition-delay: 1s;
+    margin: 15px;
+}
+
+.menucard:hover {
+    cursor: pointer;
+    transform: rotateY(180deg);
+    cursor: progress;
+}
+
+.thefront {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    color: gray;
+}
+
+.theback {
+    transform: rotateY(180deg);
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    color: white;
+    background-color: red;
+}
+
+.maincontainer {
+    position: relative;
+    width: 250px;
+}
+
+.thecard {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: all 1s ease-in-out;
+}
+
+.image {
+    height: 100%;
+    border-radius: 5px;
+}
+
+.caption {
+    text-align: center;
+    color: red;
+    letter-spacing: 2px;
+}
+
+.caption:hover {
+    cursor: progress;
+}
+
+.items {
+    margin: 10px;
+}
+
+.items:hover {
+    transform: scale(1.05);
+    cursor: cell;
+}
+
+.addToCart_button {
+    width: 100%;
+}
+
+.addToCart_button:hover .showDetails_button {
+    cursor: pointer;
+}
+
+.showDetails_button {
+    background-color: orangered;
+    width: 100%;
+}
+
+.foodimage {
+    border: 2px solid black;
+    max-height: 180px;
+    min-height: 100px;
+}
+
+/* card end */
+
+/* Cart item stsrt */
+.your_cart {
+    text-align: center;
+    margin: 10px;
+    letter-spacing: 1px;
+    padding: 40px;
+}
+
+
+.quantity {
+    width: 40%;
+}
+
+#remove {
+    border: 2px solid red;
+}
+
+.order_table {
+    padding: 50px;
+    border-radius: 50px;
+    box-shadow: 5px 5px 5px 5px gray;
+    width: fit-content;
+}
+
+.uiui {
+    display: flex;
+    position: relative;
+    bottom: 10px;
+    text-align: center;
+}
+
+.wrapper {
+    height: 50px;
+    /* min-width: 200px; */
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 12px;
+}
+
+.wrapper span {
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 200;
+}
+
+.wrapper span.num {
+    font-size: 20px;
+}
+
+.plus:hover,
+.minus:hover {
+    cursor: pointer;
+    background-color: gray;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.item_details {
+    display: flex;
+}
+
+.total_button {
+    border: 5px solid black;
+    margin-left: 70%;
+    width: 30%;
+    margin-top: 20px;
+    border-radius: 20px;
+}
+
+.shoppingcart_heading {
+    text-align: center;
+    padding-top: 70px;
+    position: relative;
+    bottom: 20px;
+}
+
+.productimage {
+    border: 2px solid black;
+    max-width: 30%;
+    margin-left: 20px;
+    border-radius: 20px;
+}
+
+.productimage:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.orderdetails {
+    margin-top: 150px;
+    color: black;
+    min-width: 400px;
+    background-color: rgba(229, 209, 209, 0.226);
+    width: fit-content;
+    font-size: large;
+    box-shadow: 5px 5px 5px 5px gray;
+}
+
+.ordersummary {
+    font-family: 'Lobster', cursive;
+    font-family: 'Work Sans', sans-serif;
+    font-size: xx-large;
+}
+
+.horizontal {
+    position: relative;
+    bottom: 20px;
+}
+
+.total_btn {
+    margin-left: 190px;
+    position: relative;
+    bottom: 10px;
+}
+
+.total_btn:hover {
+    background-color: red;
+    border-radius: 50px;
+    transform: scale(1.1);
+}
+
+.order_cart {
+    width: fit-content;
+    margin-top: 150px;
+}
+
+/* cart item ends */
+
+/* Transport offer start */
+.offers {
+    margin-top: 80px;
+}
+
+.offer_heading {
+    margin-left: 10px;
+}
+
+.offerrow {
+    padding: 20px;
+}
+
+.offerimage {
+    min-height: 250px;
+    max-height: 250px;
+}
+
+/* Transport offer ends */
+
+/* Transport partners start */
+.partners {
+    margin-top: 100px;
+}
+
+.part_logo {
+    padding: 30px;
+}
+
+
+.RTC:hover {
+    background: rgb(235, 227, 227);
+    transform: scale(1.05);
+    cursor: pointer;
+    padding: 10px;
+}
+
+.heading {
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+/* Transport partners ends */
+
+/* payment page start */
+.payment_heading {
+    color: blue;
+    position: relative;
+    top: 15px;
+}
+
+.from {
+    border: 2px solid black;
+    width: 100%;
+}
+
+/* payment page end */
+
+/* Home2 css start */
+.bgrestraurant {
+    background-image: url("../Images/food.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 700px;
+    background-position: center;
+}
+
+.dummynav {
+    margin-left: 25%;
+}
+
+.dummynav_items {
+    color: white;
+}
+
+.dummynav_items:hover {
+    cursor: pointer;
+    color: blue;
+}
+
+.dummynav_header {
+    color: orangered;
+    font-size: 800;
+    padding-left: 30px;
+}
+
+.toggler {
+    background: #ececec;
+}
+
+.paragraph {
+    margin-top: 90px;
+    color: white;
+    font-family: 'Lobster', cursive;
+    font-size: 50px;
+    text-align: center;
+}
+
+.restraurant_tag_line {
+    color: white;
+    font-size: 90px;
+    text-align: center;
+}
+
+.description {
+    color: white;
+    margin-left: 10%;
+    font-size: 25px;
+}
+
+.description2 {
+    color: white;
+    margin-left: 20%;
+    font-size: 25px;
+}
+
+.menubutton {
+    /* width: 20%; */
+    padding: 10px;
+    margin-left: 30%;
+}
+
+.dummy_menubutton {
+    border: 2px solid black;
+    margin: 10px;
+    width: 20%;
+    padding: 9px;
+}
+
+#menu {
+    background-color: orangered;
+    color: white;
+    border: none;
+    /* border: 2px solid white; */
+}
+
+.restraurant_menu {
+    background-color: orangered;
+    color: white;
+    width: 15%;
+    text-align: center;
+    border: none;
+    margin-left: 40px;
+}
+
+.dummy_menubtn {
+    padding: 5px;
+}
+
+.group_icons {
+    color: white;
+    margin-left: 30px;
+}
+
+.icons {
+    margin: 20px;
+}
+
+.icons:hover {
+    cursor: pointer;
+    color: black;
+}
+
+/* home2 css end */
+
+/* cartnav css start */
+.cartnav {
+    text-align: center;
+}
+
+.filterbutton {
+    margin: 10px 15px 10px 15px;
+    box-shadow: 2px 2px 2px 2px gray;
+}
+
+.filterbutton:hover {
+    transform: scale(1.1);
+}
+
+/* cartnav css end */
+
+/* cardsection css start */
+.cardtitle {
+    text-align: center;
+    font-size: 20px;
+}
+
+.cardcontainer {
+    width: 100%;
+}
+
+.dummyproduct {
+    width: 30%;
+    display: flex;
+    /* border: 2px solid black; */
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.btn-pay {
+    display: block;
+    width: 100%;
+    border: none;
+    background: linear-gradient(135deg,
+            rgb(49, 0, 62) 0%,
+            rgb(195, 40, 110) 100%);
+    color: #fff;
+    padding: 10px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.options {
+    border: 2px solid black;
+    padding: 10px;
+    width: 100%;
+}
+
+/* cardsection css ends */
+
+/* paymentconfirmation startt */
+.paymentconfiramtion {
+    margin-top: 100px;
+}
+
+.paymentconfiramtionheading {
+    font-size: xx-large;
+    word-spacing: 5px;
+}
+
+.paymentconfiramtiondetails {
+    background: white;
+}
+
+.confirmation:hover~.paymentconfiramtiondetails {
+    position: relative;
+    bottom: 250px;
+}
+
+.confirmation {
+    background: green;
+    min-height: 100px;
+    border: 2px solid black;
+}
+
+.successgif {
+    width: 100%;
+    height: 20%;
+}
+
+/* paymentconfiramtion ends */
+
+/* errorpage start */
+.errorgif {
+    margin-left: 40%;
+    margin-top: 150px;
+}
+
+.errorbutton {
+    width: 50%;
+    margin-left: 30%;
+}
+
+/* errorpage end */
+
+/* sidebarcss start */
+.bm-burger-button {
+    position: fixed;
+    width: 36px;
+    height: 30px;
+    left: 36px;
+    top: 36px;
+}
+
+.bm-burger-bars {
+    background: #373a47;
+}
+
+.bm-burger-bars-hover {
+    background: #a90000;
+}
+
+.bm-cross-button {
+    height: 24px;
+    width: 24px;
+
+}
+
+.bm-cross {
+    background: #bdc3c7;
+}
+
+.bm-menu-wrap {
+    position: fixed;
+    height: 100%;
+}
+
+.bm-menu {
+    background: rgb(223, 216, 233);
+    padding: 2.5em 1.5em 0;
+    font-size: 1.15em;
+}
+
+/* .bm-morph-shape {
+    fill: #192766;
+} */
+
+.bm-item-list {
+    color: #b8b7ad;
+    padding: 0.8em;
+}
+
+.bm-item {
+    display: inline-block;
+}
+
+.bm-overlay {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.menu-item {
+    color: black;
+    padding: 10px;
+    letter-spacing: 3px;
+    margin-top: 20px;
+    font-size: x-large;
+    background-color: white;
+    border-radius: 5px;
+    border: 2px solid black;
+    width: 100%;
+    height: fit-content;
+}
+
+.menu-item:hover {
+    transform: scale(1.1);
+}
+
+/* sidebar css ends */
+
+/* Chooserole css start */
+.btngroup {
+    text-align: center;
+    padding: 10px;
+    margin: 25px;
+}
+
+.adminlogin {
+    border-radius: 5px;
+    background-color: white;
+    padding: 25px;
+}
+
+.adminBackgroumnd {
+    min-height: 700px;
+    height: fit-content;
+    background: skyblue;
+}
+
+.admininput {
+    min-height: 55px;
+}
+
+.adminlogin_heading {
+    text-align: center;
+    margin: 20px;
+    font-weight: 900;
+    letter-spacing: 5px;
+    font-family: 'Lobster', cursive;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.adminlogin_btn {
+    border: 2px solid black;
+    width: 100%;
+}
+
+/* Chooserole css end */
+
+/* admindashboard start */
+.admindashboard {
+    text-align: center;
+    margin-top: 50px;
+}
+
+/* admindashboard end */
+
+/* Itemdetails start */
+.productDetail_Image {
+    margin-top: 20px;
+    border: 1px solid gray;
+    padding: 10px;
+    min-height: 500px;
+    max-height: 500px;
+    width: 600px;
+    position: sticky;
+    top: 20px;
+}
+
+.productDetail_Image:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.cart_button {
+    width: 100%;
+    padding: 12px;
+}
+
+.cart_button:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.functional_button {
+    position: sticky;
+    top: 550px;
+    margin-top: 20px;
+    margin-left: 10px
+}
+
+.swiggy {
+    border: 2px solid black;
+    width: fit-content;
+    padding: 10px;
+    font-size: xx-large;
+    color: blue;
+}
+
+.currency {
+    margin-bottom: 20px;
+}
+
+.list_items {
+    margin-top: 20px;
+}
+
+.list_items:hover {
+    background-color: rgb(247, 244, 244);
+}
+
+.warenty {
+    margin: auto;
+    color: orangered;
+}
+
+.highlighgts {
+    margin-top: 20px;
+}
+
+.highlighgts_heading {
+    color: rgb(230, 26, 26);
+}
+
+.item_head {
+    color: orange;
+}
+
+/* favourite start */
+#favouriteImage {
+    border: 5px solid red;
+    max-height: 200px;
+    min-height: 30px;
+}
+
+.favoritetable {
+    border: 5px solid black;
+    margin-left: 150px;
+}
+
+/* favourite end */
+/* Itemdetails end */
+
+/* Adminnav start */
+.adminnav_heading {
+    margin: auto;
+    letter-spacing: 2px;
+    color: white;
+}
+
+.adminnav {
+    background-color: purple;
+    box-shadow: 2px 2px 2px 2px purple;
+}
+
+/* adminnav end */
+
+/* adminhome start */
+
+.order_heading {
+    text-align: center;
+    color: purple;
+}
+
+.order_body {
+    margin-top: 10px;
+    border: 2px solid purple;
+}
+
+.order_cards {
+    border: 2px solid black;
+}
+
+.order_cards:hover {
+    transform: scale(1.05);
+    background-color: gray;
+    cursor: pointer;
+    color: white;
+}
+
+/* adminhome end */
+
+/* adminservices start */
+.adminservices {
+    display: flex;
+    border: 2px solid black;
+    border-radius: 10px;
+    margin-top: 10px;
+    background-color: gainsboro;
+    padding: 10px;
+    height: fit-content;
+    flex-direction: column;
+}
+
+.adminmenu_items {
+    border: 2px solid black;
+    padding: 10px;
+    width: 100%;
+    text-align: start;
+    margin: 10px 0px 0px 0px;
+    background-color: white;
+    color: purple;
+}
+
+.adminmenu_items:hover {
+    transform: scale(1.045);
+    border-left: 5px solid blue;
+}
+
+/* adminservices end */
+
+/* totalorder start */
+.user_email {
+    margin-left: 350px;
+    color: blue;
+}
+
+.user_email:hover {
+    cursor: pointer;
+    color: green;
+}
+
+.current_status {
+    margin-left: 700px;
+}
+
+.current_status:hover {
+    color: red;
+    cursor: pointer;
+}
+
+.admin_action {
+    padding: 10px;
+}
+
+.action_buttons {
+    margin: 10px;
+}
+
+.order_card {
+    margin: 15px;
+}
+
+.order_card:hover {
+    cursor: pointer;
+    border: 2px solid purple;
+    border-left: 7px solid purple;
+}
+
+.deliverby {
+    text-align: end;
+    padding-right: 130px;
+    color: green;
+}
+
+.deliverby:hover {
+    color: red;
+}
+
+/* totalorder end */
+
+/* yourorder start */
+.your_order {
+    text-align: center;
+    margin-top: 30px;
+    border: 2px solid black;
+    position: fixed;
+    width: 100%;
+    padding: 10px;
+    z-index: 50;
+    background-color: white;
+    box-shadow: 3px 3px 3px 3px rgb(220, 208, 208);
+    top: -30px;
+}
+
+.current_order_status {
+    margin-left: 500px;
+}
+
+.current_order_status:hover {
+    color: red;
+    cursor: pointer;
+}
+
+.user_items {
+    list-style: none;
+}
+
+.status {
+    color: hsl(60, 91%, 31%);
+}
+
+.myOrder {
+    border: 2px solid black;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.my_orders:hover {
+    cursor: pointer;
+    transform: scale(1.02);
+    border-left: 10px solid blue;
+}
+
+/* yourorder end */
+
+/* ordermenu start */
+.order_menu {
+    margin-top: 100px;
+    margin-left: 600px;
+    margin-bottom: 30px;
+}
+
+.rejected_order_button {
+    margin-top: 70px;
+    margin-left: 100px;
+    padding: 10px;
+}
+
+/* ordermenu ends */
+
+/* ticketheader start */
+.ticketheader {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.ticket_actions {
+    border: 1px solid black;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+/* ticketheader end */
+
+/* raisedticketadmin start */
+.raisedticket {
+    margin-top: 10px;
+    border: 1px solid black;
+}
+
+.raisedticket:hover {
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+.user_emailadmin {
+    text-align: right;
+}
+
+.user_emailadmin:hover {
+    color: green;
+}
+
+.resolveby {
+    color: blue;
+    text-align: end;
+    font-size: x-large;
+}
+
+/* raisedticketadmin end */
+
+/* userticket start*/
+.user_ticket {
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid black;
+    padding: 15px;
+}
+
+.raised_ticket_buttons {
+    margin: 10px;
+    width: 150px;
+}
+
+.usersolution {
+    color: rgb(33, 162, 33);
+}
+
+.userreason {
+    color: rgb(222, 88, 88);
+}
+
+.userreason:hover {
+    color: blue;
+}
+
+.usersolution:hover {
+    color: blue;
+}
+
+/* userticket ends */
+/* Dummy css start */
+
+/* Dummy css end */
