@@ -1,167 +1,103 @@
- import React, { useEffect, useContext } from "react";
-// import GoogleIcon from "@mui/icons-material/Google";
-import hotelcontext from "../hotelcontext/hotelContext";
-// import FacebookIcon from "@mui/icons-material/Facebook";
-import { useState } from "react";
+import React, { useEffect, useContext } from "react";
+ import hotelcontext from "../hotelcontext/hotelContext";
+ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Navbar from "../Navbar";
-import Sidebar from "../Home2/Sidebar";
-import ChooseRole from "./ChooseRole";
+ import { auth } from "../firebaseFiles/Config";
+import LockOpenIcon from "@mui/icons-material/LockOpen";
+import Navbar from "../genralcomponent/Navbar";
+import Footer from "../genralcomponent/Footer";
 
 function Signup() {
-  const navigate = useNavigate();
+  const [values, setValues] = useState("");
   const context = useContext(hotelcontext);
-  const { restrictUser, handleSubmit } = context;
+  const {resrictONAuthentication, handleSignup } = context;
+
+  const [credentials, setCredentials] = useState({ email: "", password: "" });
+
+  const { email, password } = credentials;
+
   useEffect(() => {
-    restrictUser();
-  }, []);
+    resrictONAuthentication()
+  }, [])
 
-  const [credentials, setCredentials] = useState({
-    email: "",
-    name: "",
-    number: "",
-    address: "",
-    password: "",
-  });
-
-  const { email, password, name, address, number } = credentials;
-  console.log(credentials.name);
-  const handleClick = (e) => {
-    e.preventDefault();
-  };
   const onChange = (e) => {
-  
     e.preventDefault();
-    console.log(e.target.value);
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
   return (
     <>
+    <Navbar />
       <div className="adminBackgroumnd">
-        <ChooseRole />
-        <Sidebar />
         <div className="container">
           <div className="row">
             <div className="col-lg-3"></div>
             <div className="col-lg-5">
-              <form className="adminlogin" onSubmit={handleSubmit}>
-                <h1 className="adminlogin_heading">Signup</h1>
+              <form className="adminlogin">
+                <h1 className="adminlogin_heading">Signup Here</h1>
+                <hr />{" "}
                 <div className="mb-3">
-                  <label for="exampleInputEmail1" className=" form-label">
-                    Email
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control admininput"
-                    id="email"
-                    name="email"
-                    placeholder="Email"
-                    onChange={onChange}
-                    aria-describedby="emailHelp"
-                  />
-                  <small id="err"></small>
-                  <hr className="horizon" />
-                </div>
-
-                <div className="mb-3">
-                  <label for="exampleInputEmail1" className=" form-label">
-                    UserName
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control admininput"
-                    id="name"
-                    placeholder="Username"
-                    name="name"
-                    onChange={onChange}
-                    aria-describedby="emailHelp"
-                  />
-                  <small id="err"></small>
-                  <hr className="horizon" />
-                </div>
-
-                <div className="mb-3">
-                  <label for="exampleInputEmail1" className=" form-label">
-                    contact number
+                  <label htmlFor="exampleInputEmail1" className="form-label">
+                    Email address
                   </label>
                   <input
                     type="email"
                     className="form-control admininput"
-                    id="number"
-                    name="number"
-                    placeholder="Contact number"
+                    id="email"
+                    name="email"
                     onChange={onChange}
+                    placeholder="Enter email"
                     aria-describedby="emailHelp"
                   />
-                  <small id="err"></small>
-                  <hr className="horizon" />
+                  <hr />
                 </div>
-
                 <div className="mb-3">
-                  <label for="exampleInputEmail1" className=" form-label">
-                    address
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control admininput"
-                    id="address"
-                    name="address"
-                    placeholder="Address"
-                    onChange={onChange}
-                    aria-describedby="emailHelp"
-                  />
-                  <small id="err"></small>
-                  <hr className="horizon" />
-                </div>
-                <p className="forgot">
-                  <Link to="/"> Forgot Email? </Link>
-                </p>
-                <div className="mb-3">
-                  <label for="exampleInputEmail1" className=" form-label">
+                  <label htmlFor="exampleInputPassword1" className="form-label">
                     Password
                   </label>
+
                   <input
                     type="password"
                     className="form-control admininput"
                     id="password"
-                    placeholder="Password"
                     name="password"
                     onChange={onChange}
-                    aria-describedby="emailHelp"
+                    placeholder="Enter password"
                   />
-                  <small id="err"></small>
-                  <hr className="horizon" />
+                  <hr />
                 </div>
+                Already have account?{" "}
+                <Link className="link" to="/login">
+                  Login
+                </Link>
+                <div className="row">
+                  <div className="col-lg-4"></div>
+                  <div className="col-lg-5">
+                    <button
+                      type="submit"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleSignup(
+                          auth,
+                          credentials.email,
+                          credentials.password
+                        );
+                      }}
+                      className="btn btn-outline-primary adminlogin_btn"
+                    >
+                      <LockOpenIcon /> Signup
+                    </button>
+                  </div>
 
-                <p className="forgot">
-                  <Link to="/"> Forgot password? </Link>
-                </p>
-                  Don't have account? <Link to="/login">Sign in</Link>
-                <div className="loginbutton">
-                  <button
-                    type="button"
-                    class="btn btn-primary adminlogin_btn"
-                    onClick={() => {
-                      handleSubmit(
-                        credentials.email,
-                        credentials.name,
-                        credentials.address,
-                        credentials.number,
-                        credentials.password
-                      );
-                    }}
-                  >
-                    Sign Up
-                  </button>
+                  <div className="col-lg-1"></div>
                 </div>
-                <hr />
                 <hr />
               </form>
             </div>
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

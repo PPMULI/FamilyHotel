@@ -22,8 +22,7 @@ function ItemsDetails() {
     onItemDetails(localStorage.getItem("productId"));
   }, []);
 
-  console.log(productDetails);
-  const reducer = (state, action) => {
+   const reducer = (state, action) => {
     if (state >= 1) {
       if (action.type == "INCREAMENT") {
         localStorage.setItem("quantity1", state + 1);
@@ -52,8 +51,7 @@ function ItemsDetails() {
         <div className="row">
           {productDetails &&
             productDetails.map((value) => {
-              console.log(value);
-              return (
+               return (
                 <>
                   <div className="col-lg-4">
                     <img

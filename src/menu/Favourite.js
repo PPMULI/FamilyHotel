@@ -13,8 +13,7 @@ function Favourite() {
     fetchFavouriteItems,
   } = context;
 
-  console.log(favouriteItem);
-
+ 
   useEffect(() => {
     checkAuthority()
     fetchFavouriteItems();

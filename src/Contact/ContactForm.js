@@ -6,75 +6,35 @@ function ContactForm() {
   let context = useContext(hotelcontext);
   const { handleContactForm, checkAuthority } = context;
 
-  useEffect(() => {
-    checkAuthority()    
-  })
   const [credentials, setCredentials] = useState({
+    actionby: "",
+    concern: "",
+    contactnumber: "",
     email: localStorage.getItem("email"),
-    name: "",
-    number: "",
+    fullname: "",
+    reasonofissue: "",
+    solution: "",
+    status: "pending",
     subject: "",
-    message: "",
-    status: "pending"
   });
-  const handleClick = (e) => {
-    e.preventDefault();
-    const email1 = document.getElementById("email");
-    const name1 = document.getElementById("name");
-    const subject1 = document.getElementById("subject");
-    const message1 = document.getElementById("message");
-    const contactform = document.getElementById("number");
 
-    // success function
-    function showSuccess(input, message) {
-      const formControl = input.parentElement;
-      formControl.className = "form-control success";
-      const small = formControl.querySelector("small");
-      // small.innerText = message;
-      small.classList.add("succText");
-    }
-
-    // error function
-    function showError(input, message) {
-      const formControl = input.parentElement;
-
-      formControl.className = "form-control error";
-      const small = formControl.querySelector("small");
-      small.innerText = message;
-
-      small.classList.add("errText");
-    }
-
-    // get input field name
-    function getFieldName(input) {
-      return input.id.charAt(0).toUpperCase() + input.id.slice(1);
-    }
-
-    let success = 0;
-    let error = 0;
-    function checkLength(input) {
-      if (input.value.length == 0) {
-        error = 1;
-        showError(input, `${getFieldName(input)} shoud not be null`);
-      } else {
-        success = 1;
-        showSuccess(input, "correct");
-      }
-    }
-
-    // // function call
-    checkLength(email1);
-    checkLength(message1);
-    checkLength(subject1);
-    checkLength(contactform);
-    checkLength(name1);
-  };
-
-  const { email, name, message, subject, number, status } = credentials;
+  const {
+    actionby,
+    concern,
+    contactnumber,
+    email,
+    fullname,
+    reasonofissue,
+    solution,
+    status,
+    subject,
+  } = credentials;
   console.log(credentials);
+
+ 
   const onChange = (e) => {
     e.preventDefault();
-    console.log(e.target.value)
+    console.log(e.target.value);
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
   return (
@@ -93,9 +53,9 @@ function ContactForm() {
                 <input
                   type="text"
                   class="form-control form"
-                  id="name"
+                  id="fullname"
                   onChange={onChange}
-                  name="name"
+                  name="fullname"
                   placeholder="Enter the Full name"
                   aria-describedby="emailHelp"
                 />
@@ -116,8 +76,8 @@ function ContactForm() {
                   placeholder="Enter the Contact Number"
                   onChange={onChange}
                   class="form-control form"
-                  id="number"
-                  name="number"
+                  id="contactnumber"
+                  name="contactnumber"
                 />
                 <hr />
                 <small></small>
@@ -181,9 +141,9 @@ function ContactForm() {
             <textarea
               class="form-control form"
               placeholder="Enter your Concern"
-              id="message"
+              id="concern"
               onChange={onChange}
-              name="message"
+              name="concern"
               maxLength={30}
               minLength={10}
               rows="3"
@@ -195,14 +155,19 @@ function ContactForm() {
             <button
               type="submit"
               class="btn btn-primary formbutton"
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault()
                 handleContactForm(
+
                   credentials.email,
-                  credentials.name,
-                  credentials.number,
-                  credentials.subject,
-                  credentials.message,
-                  credentials.status
+                  credentials.actionby,
+                  credentials.concern,
+                  credentials.contactnumber,
+                  credentials.fullname,
+                  credentials.reasonofissue,
+                  credentials.solution,
+                  credentials.status,
+                  credentials.subject
                   )
               }}
             >

@@ -11,44 +11,67 @@ import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 function Sidebar() {
   return (
     <>
       <Menu>
-        <Link className="menu-item" to="/">
-          <HomeIcon />
-          Home
-        </Link>
-        <Link className="menu-item" to="/yourorder">
-          <MenuBookIcon />
-          Your Order
-        </Link>
-        <Link className="menu-item" to="/menucard">
-          <RestaurantMenuIcon />
-          Menu
-        </Link>
+        {window.location.pathname == "/adminhome" ? (
+          <Link className="menu-item item_ongoing" to="/adminhome">
+            <HomeIcon />
+            <span className="menu-item-component"> Home </span>
+          </Link>
+        ) : (
+          <Link className="menu-item" to="/adminhome">
+            <HomeIcon />
+            <span className="menu-item-component"> Home </span>
+          </Link>
+        )}
+
+        {window.location.pathname == "/customerorders" ? (
+          <Link className="menu-item item_ongoing" to="/customerorders">
+            <MenuBookIcon />
+            <span className="menu-item-component">Customer Order</span>
+          </Link>
+        ) : (
+          <Link className="menu-item" to="/customerorders">
+            <MenuBookIcon />
+            <span className="menu-item-component">Customer Order</span>
+          </Link>
+        )}
+
+        {window.location.pathname == "/customertickets" ? (
+          <Link className="menu-item item_ongoing" to="/customertickets">
+            <MenuBookIcon />
+            <span className="menu-item-component">Customer Tickets</span>
+          </Link>
+        ) : (
+          <Link className="menu-item" to="/customertickets">
+            <MenuBookIcon />
+            <span className="menu-item-component">Customer Tickets</span>
+          </Link>
+        )}
+
+        {window.location.pathname == "/adminlist" ? (
+          <Link className="menu-item item_ongoing" to="/adminlist">
+            <SupervisorAccountIcon />
+            <span className="menu-item-component">Admin List</span>
+          </Link>
+        ) : (
+          <Link className="menu-item" to="/adminlist">
+            <SupervisorAccountIcon />
+            <span className="menu-item-component">Admin List</span>
+          </Link>
+        )}
+
         <Link className="menu-item" to="/contact">
           <ConnectWithoutContactIcon />
-          Contact
-        </Link>
-
-        <Link className="menu-item" to="/cartitems">
-          <AddShoppingCartIcon />
-          Cart
-        </Link>
-
-        <Link className="menu-item" to="/userticket">
-          <ConfirmationNumberIcon />
-          Your Ticket
-        </Link>
-        <Link className="menu-item" to="/favoriteitems">
-          <FavoriteBorderIcon />
-          Favourite
+          <span className="menu-item-component">Contacts</span>
         </Link>
         {!localStorage.getItem("authtoken") ? (
           <Link className="menu-item" to="/login">
             <LoginIcon />
-            login
+            <span className="menu-item-component">Login</span>
           </Link>
         ) : (
           <Link
@@ -59,12 +82,13 @@ function Sidebar() {
             }}
           >
             <LogoutIcon />
-            logOut
+            <span className="menu-item-component">LogOut</span>
           </Link>
         )}
-        <Link className="menu-item" to="/adminhome">
-          <SupervisorAccountIcon />
-          Admin
+
+        <Link className="menu-item" to="/">
+          <PersonOutlineIcon />
+          <span className="menu-item-component">User Section</span>
         </Link>
       </Menu>
     </>

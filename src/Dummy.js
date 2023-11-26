@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 
 function TotalOrders() {
   const context = useContext(hotelcontext);
-  const { fetchOrderAdmin, setTotalOrderAdmin, totalOrderAdmin } = context;
+  const { fetchOrderAdmin,dummy_responce, setTotalOrderAdmin, totalOrderAdmin } = context;
 
   const [order, setOrder] = useState([]);
   console.log(totalOrderAdmin.orderfood);
 
   useEffect(() => {
-    fetchOrderAdmin();
+    dummy_responce()
   }, []);
 
   // Function to handle the update action

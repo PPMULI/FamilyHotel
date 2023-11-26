@@ -1,6 +1,6 @@
 import React from "react";
 import { useRef } from "react";
-
+import Footer from "../genralcomponent/Footer";
 import ContatcNAv from "./ContatcNAv";
 import ContactCard from "./ContactCard";
 
@@ -19,6 +19,8 @@ function Contact() {
           <ContactCard />
         </div>
       </div>
+
+      <Footer />
     </>
   );
 }

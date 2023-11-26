@@ -5,6 +5,9 @@ export const MenuItems = [
   {
     food: {
       id: 1,
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       foodId: "food_bwrgmmqau78xrdazxx79obeezumz",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01001",
       label: "Butter, Salted",
@@ -80,6 +83,9 @@ export const MenuItems = [
   },
   {
     food: {
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       id: 2,
       foodId: "food_blrpqo1bp94h17apq4prgbhcuhex",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01002",
@@ -152,6 +158,9 @@ export const MenuItems = [
   {
     food: {
       id: 3,
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       foodId: "food_bzaenytbm02cd4br159f4biv49jc",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01003",
       label: "Butter Oil, Anhydrous",
@@ -213,6 +222,9 @@ export const MenuItems = [
   {
     food: {
       id: 4,
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       foodId: "food_aqptx2cauhjjzubmplnjna81ev33",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01004",
       label: "Cheese, Blue",
@@ -306,6 +318,9 @@ export const MenuItems = [
   {
     food: {
       id: 5,
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       foodId: "food_au4tus5b092owgbiu8yama5yupfp",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01005",
       label: "Cheese, Brick",
@@ -388,6 +403,9 @@ export const MenuItems = [
   {
     food: {
       id: 6,
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       foodId: "food_a06hreabh7agoeazgrtiobunge7b",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01006",
       label: "Cheese, Brie",
@@ -490,6 +508,9 @@ export const MenuItems = [
   {
     food: {
       id: 7,
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       foodId: "food_bq1kaa2anb8wmsaj3in43bxxsjyh",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01007",
       label: "Cheese, Camembert",
@@ -567,6 +588,9 @@ export const MenuItems = [
   {
     food: {
       id: 8,
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       foodId: "food_a8q8p7tahfewtuajrmgcrbpxtti8",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01008",
       label: "Cheese, Caraway",
@@ -614,6 +638,9 @@ export const MenuItems = [
   {
     food: {
       id: 9,
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       foodId: "food_a2b3q33bnje4iual2pba2at89tzi",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01009",
       label:
@@ -730,6 +757,9 @@ export const MenuItems = [
   {
     food: {
       id: 10,
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       foodId: "food_b4g9w0dboo05sdaxwu1n9a3b4emv",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01010",
       label: "Cheese, Cheshire",
@@ -777,6 +807,9 @@ export const MenuItems = [
   {
     food: {
       id: 11,
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       foodId: "food_a5ylefeb5r30eibjj4mqubdc09z1",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01011",
       label: "Cheese, Colby",
@@ -859,6 +892,9 @@ export const MenuItems = [
   {
     food: {
       id: 12,
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       foodId: "food_abw09jebwny3g6bb7jvn0bbalare",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01012",
       label: "Cheese, Cottage, Creamed, Large or Small Curd",
@@ -936,6 +972,9 @@ export const MenuItems = [
   {
     food: {
       id: 13,
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       foodId: "food_apqi15daozoc8oacpl41rallrou9",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01013",
       label: "Cheese, Cottage, Creamed, With Fruit",
@@ -983,6 +1022,9 @@ export const MenuItems = [
   {
     food: {
       id: 14,
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       foodId: "food_b0nmp6gaermj0aad3mf7iararumu",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01014",
       label: "Cheese, Cottage, Nonfat, Uncreamed, Dry, Large or Small Curd",
@@ -1040,6 +1082,9 @@ export const MenuItems = [
   {
     food: {
       id: 15,
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       foodId: "food_a78om83aro60t5a4wpm8hbf3239s",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01015",
       label: "Cheese, Cottage, Lowfat, 2% Milkfat",
@@ -1097,6 +1142,9 @@ export const MenuItems = [
   {
     food: {
       id: 16,
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       foodId: "food_bowtx9kb5cpt8yb6qswcga80ycli",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01016",
       label: "Cheese, Cottage, Lowfat, 1% Milkfat",
@@ -1149,6 +1197,9 @@ export const MenuItems = [
   {
     food: {
       id: 17,
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       foodId: "food_a5oa9cnaawyx9uang44bka8467or",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01017",
       label: "Cheese, Cream",
@@ -1259,6 +1310,9 @@ export const MenuItems = [
   {
     food: {
       id: 18,
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       foodId: "food_ax6ocbjas0levpb3nl0n7auzwy0i",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01018",
       label: "Cheese, Edam",
@@ -1311,6 +1365,9 @@ export const MenuItems = [
   {
     food: {
       id: 19,
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       foodId: "food_ba6vmpsbtteeyabi8t2i8bwzl13d",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01019",
       label: "Cheese, Feta",
@@ -1409,6 +1466,9 @@ export const MenuItems = [
   {
     food: {
       id: 20,
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       foodId: "food_a9n6dlcb168fzqb5qrkp9a7oy4jp",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01020",
       label: "Cheese, Fontina",
@@ -1429,6 +1489,9 @@ export const MenuItems = [
   {
     food: {
       id: 21,
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       foodId: "food_a9n6dlcb168fzqb5qrkp9a7oy4jp",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01020",
       label: "Cheese, Fontina",
@@ -1449,6 +1512,9 @@ export const MenuItems = [
   {
     food: {
       id: 22,
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       foodId: "food_a9n6dlcb168fzqb5qrkp9a7oy4jp",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01020",
       label: "Cheese, Fontina",
@@ -1470,6 +1536,9 @@ export const MenuItems = [
   {
     food: {
       id: 23,
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       foodId: "food_a9n6dlcb168fzqb5qrkp9a7oy4jp",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01020",
       label: "Cheese, Fontina",
@@ -1490,6 +1559,9 @@ export const MenuItems = [
 
   {
     food: {
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       id: 24,
       foodId: "food_a9n6dlcb168fzqb5qrkp9a7oy4jp",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01020",
@@ -1512,6 +1584,9 @@ export const MenuItems = [
   {
     food: {
       id: 25,
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       foodId: "food_a9n6dlcb168fzqb5qrkp9a7oy4jp",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01020",
       label: "Cheese, Fontina",
@@ -1532,6 +1607,9 @@ export const MenuItems = [
   {
     food: {
       id: 26,
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       foodId: "food_a9n6dlcb168fzqb5qrkp9a7oy4jp",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01020",
       label: "Cheese, Fontina",
@@ -1552,6 +1630,9 @@ export const MenuItems = [
   {
     food: {
       id: 27,
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       foodId: "food_a9n6dlcb168fzqb5qrkp9a7oy4jp",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01020",
       label: "Cheese, Fontina",
@@ -1572,6 +1653,9 @@ export const MenuItems = [
   {
     food: {
       id: 28,
+      price: 500,
+      discountedprice: 400,
+      discount: 10,
       foodId: "food_a9n6dlcb168fzqb5qrkp9a7oy4jp",
       uri: "http://www.edamam.com/ontologies/edamam.owl#Food_01020",
       label: "Cheese, Fontina",

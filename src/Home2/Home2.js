@@ -5,6 +5,7 @@ import Qualities from "../Home/Qualities";
 import pizza from "../Images/pizzas.jpg"
 import delicious from "../Images/delicious.jpg"
 import burger from "../Images/Burger.jpg"
+import Footer from "../genralcomponent/Footer";
 
 function Home2() {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ function Home2() {
     <>
       <div className="bgrestraurant">
         <HomeNav2 />
-        <div className="paragraph">welcome To Family Restraurant</div>
+        <div className="paragraph">welcome To Family Restraurant in MH</div>
 
         <div className="container">
           <h1 className="restraurant_tag_line">Eat Healty and Natural Food</h1>
@@ -30,7 +31,7 @@ function Home2() {
             type="button"
             id="menu"
             onClick={() => {
-              navigate("/menucard");
+              navigate("/totalmenu");
             }}
             className="btn-outline-light dummy_menubutton"
           >
@@ -65,6 +66,8 @@ function Home2() {
           </div>
         </div>
       </div>
+
+      <Footer />
     </>
   );
 }

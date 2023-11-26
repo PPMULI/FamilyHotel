@@ -1,41 +1,40 @@
-import React, { useEffect, useReducer } from "react";
-import { useState } from "react";
-import { MenuItems } from "./MenuItems";
-import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import hotelcontext from "../hotelcontext/hotelContext";
-import MenuCategoryButtons from "./overallMenu/MenuCategoryButtons";
-import { ToastContainer, toast } from "react-toastify";
+import React, { useContext, useState } from "react";
+import { MenuItems } from "../MenuItems";
+import hotelcontext from "../../hotelcontext/hotelContext";
+import shopIcon, { Email } from "@mui/icons-material";
+import MenuCategoryButtons from "./MenuCategoryButtons";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import ShopIcon from "@mui/icons-material/Shop";
-import Navbar from "../genralcomponent/Navbar";
-import Footer from "../genralcomponent/Footer";
+import { useReducer } from "react";
+import { useNavigate } from "react-router-dom";
+import Navbar from "../../genralcomponent/Navbar";
+import Footer from "../../genralcomponent/Footer";
 
-function MenuCard() {
+function TotalMenu() {
   const context = useContext(hotelcontext);
-  const { selecteditem, YourItems, handleSubmit, reducer, Buy_the_product } =
-    context;
+  const { reducer, handleSubmit, Buy_the_product } = context;
 
-  const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     reasonofrejection: "",
     actionby: "",
   });
+
   const { reasonofrejection, actionby } = credentials;
   let initialState = 1;
   const [state, dispatch] = useReducer(reducer, initialState);
+  const navigate = useNavigate();
+
   return (
     <>
       <Navbar />
       <div className="totalmenu">
         <MenuCategoryButtons />
         <div className="menu_items">
-          <h1 className="menu">{localStorage.getItem("category")}</h1>
           <div className="container">
             <div className="menuitems">
               <div className="row">
-                {selecteditem &&
-                  selecteditem.map((value) => {
+                {MenuItems &&
+                  MenuItems.map((value) => {
                     return (
                       <>
                         <div className="col-lg-4">
@@ -51,10 +50,9 @@ function MenuCard() {
                               }}
                             />
                             <div class="card-body">
-                              <h4 class="card-title food_category">
+                              <h4 class="food_category">
                                 {value.food.knownAs}
                               </h4>
-
                               <form action="">
                                 <div className="uiui">
                                   <div className="wrapper">
@@ -155,4 +153,4 @@ function MenuCard() {
   );
 }
 
-export default MenuCard;
+export default TotalMenu;

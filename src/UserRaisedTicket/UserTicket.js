@@ -14,8 +14,7 @@ function UserTicket() {
 
   useEffect(() => {
     fetchuserticket();
-    console.log(userticket);
-  }, []);
+   }, []);
   return (
     <>
       <Sidebar />

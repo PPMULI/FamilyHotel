@@ -1,6 +1,293 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Work+Sans:wght@100&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Open+Sans:wght@300&family=Work+Sans:wght@100&display=swap');
 
+/* copied from global.css */
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Lobster&family=Open+Sans:wght@300&family=Work+Sans:wght@100&display=swap');
+
+/* menucard start */
+.menucard {
+    margin: 5px;
+    position: relative;
+    transform-style: preserve-3d;
+    margin: 15px
+}
+
+.menucard:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.productimage {
+    min-height: 200px;
+    max-height: 200px;
+}
+
+.shopping_icons {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.food_category {
+    text-align: center;
+    color: green;
+}
+
+.food_category:hover {
+    color: blue;
+}
+
+/* menucard ends */
+
+/* totalmenu start */
+.totalmenu {
+    padding-top: 70px;
+}
+
+.menu_items {
+    padding-top: 100px;
+}
+
+/* totlamenu end */
+
+/* dishdetails start */
+.product_details {
+    padding-top: 100px;
+}
+
+.product_title {
+    text-align: center;
+    box-shadow: 2px 2px 2px 2px gray;
+}
+
+.product_title:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    color: orangered;
+}
+
+.productImage {
+    height: fit-content;
+    width: 500px;
+    padding: 10px;
+}
+
+.productinfobuttons {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.linkonhome {
+    color: white;
+}
+
+.detail_image_of_product {
+    width: 100%;
+}
+
+.detail_image_of_product:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.ratingbutton {
+    border: 2px solid black;
+    margin-top: 10px;
+    width: 20%;
+    margin-right: 10px;
+}
+
+.ratingbutton:hover {
+    background-color: orangered;
+    color: black;
+}
+
+.product_price {
+    margin-top: 10px;
+}
+
+.product_price:hover {
+    cursor: pointer;
+    transform: scale(1.01);
+}
+
+.available_offers {
+    color: green;
+}
+
+ul {
+    list-style: none;
+}
+
+.orignal_price {
+    color: red;
+    text-decoration: line-through;
+    font-weight: 600;
+}
+
+.product_description {
+    margin-top: 10px;
+    color: green;
+}
+
+.hurryup {
+    height: 100px;
+}
+
+.product_thumbnail {
+    border: 2px solid red;
+    margin-top: 10px;
+}
+
+.offer_icon {
+    color: green;
+    position: relative;
+    right: 20px;
+}
+
+.details_buttons {
+    width: 100%;
+    color: white;
+}
+
+.favorite_button {
+    background-color: orangered;
+}
+
+/* dishdetails ends */
+
+/* navbar start */
+.navbar-items {
+    margin-left: 450px;
+}
+
+.supervisor_icon {
+    transform: scale(1.1);
+    position: relative;
+    bottom: 5px;
+}
+
+.supervisor_icon:hover {
+    cursor: pointer;
+    background-color: black;
+    color: white;
+}
+
+.muli_store {
+    color: orangered;
+    text-align: center;
+     margin: auto;
+}
+
+.fix_navbar {
+    position: fixed;
+    z-index: 60;
+    border: 2px solid black;
+    box-shadow: 2px 2px 2px 2px gray;
+    width: 100%;
+    background-color: white;
+}
+
+.navbar-heading {
+    letter-spacing: 3px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.icons_on_nav {
+    /* margin: 10px; */
+    text-align: end;
+    padding: 10px;
+}
+
+.login_icon {
+    margin-left: 300px;
+}
+
+.cart_icon {
+    margin-left: 40px;
+}
+
+.login_icon:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    background-color: black;
+    color: white;
+}
+
+.family_hotel {
+    color: orangered;
+    margin-left: 300%;
+    font-size: x-large;
+}
+.cart_icon:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    background-color: black;
+    color: white;
+}
+
+.admin_nav {
+    border: 5px solid red;
+    background-color: rgb(242, 238, 238);
+}
+
+/* navbar ends */
+
+/* MenuCategoryButtons start */
+.MenuCategoryButtons {
+    position: fixed;
+    width: 100%;
+    z-index: 50;
+}
+
+/* MenuCategoryButtons ends */
+
+/* cartitem start */
+.heading {
+    padding-top: 10px;
+    padding-left: 10px;
+    font-weight: 900;
+    font-size: xx-large;
+    text-align: center;
+    font-family: 'Lobster', sans-serif;
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-family: 'Work Sans', sans-serif;
+}
+
+.refreshbutton {
+     margin: 10px 0px 10px 0px;
+}
+
+.dishid {
+    text-align: end;
+}
+
+.cancel_button {
+    margin-top: 5px;
+    text-align: end;
+}
+
+.cart {
+    border: 2px solid black;
+    padding: 10px;
+    margin: 5px;
+}
+
+.cart:hover {
+    background: rgb(241, 239, 236);
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.status {
+    color: rgb(228, 228, 26);
+}
+/* cartitem end */
+ 
+
+ 
+/* profile page end */
+/* global css end */
 /* home component start */
 .bgbackgroundfood {
     background-image: url("../Images/foodBackground.jpg");
@@ -116,7 +403,7 @@
 }
 
 .contact_nav_items {
-    color: white;
+    /* color: white; */
     padding: 20px;
     font-weight: 800;
     margin-left: 10px;
@@ -151,7 +438,7 @@
 }
 
 .restraurantheading {
-    color: whitesmoke;
+    /* color: whitesmoke; */
     text-align: center;
     padding-top: 150px;
     letter-spacing: 2px;
@@ -365,21 +652,8 @@
 /* menu card coading end */
 
 /* card start */
-.menucard {
-    margin: 5px;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: all 0.5s ease;
-    transition-delay: 1s;
-    margin: 15px;
-}
 
-.menucard:hover {
-    cursor: pointer;
-    transform: rotateY(180deg);
-    cursor: progress;
-}
-
+/* 
 .thefront {
     position: absolute;
     width: 100%;
@@ -451,7 +725,7 @@
     border: 2px solid black;
     max-height: 180px;
     min-height: 100px;
-}
+} */
 
 /* card end */
 
@@ -533,18 +807,6 @@
     padding-top: 70px;
     position: relative;
     bottom: 20px;
-}
-
-.productimage {
-    border: 2px solid black;
-    max-width: 30%;
-    margin-left: 20px;
-    border-radius: 20px;
-}
-
-.productimage:hover {
-    transform: scale(1.1);
-    cursor: pointer;
 }
 
 .orderdetails {
@@ -889,7 +1151,8 @@
 }
 
 .bm-menu {
-    background: rgb(223, 216, 233);
+    background: black;
+    width: 120%;
     padding: 2.5em 1.5em 0;
     font-size: 1.15em;
 }
@@ -912,21 +1175,32 @@
 }
 
 .menu-item {
-    color: black;
+    color: white;
     padding: 10px;
     letter-spacing: 3px;
     margin-top: 20px;
-    font-size: x-large;
-    background-color: white;
+    font-size: larger;
     border-radius: 5px;
-    border: 2px solid black;
     width: 100%;
     height: fit-content;
+    text-decoration: none;
+}
+
+.menu-item-component {
+    padding-left: 10px;
 }
 
 .menu-item:hover {
     transform: scale(1.1);
+    background-color: blue;
+    border-radius: 10px;
 }
+
+.item_ongoing {
+    transform: scale(1.1);
+    background-color: blue;
+    border-radius: 10px;
+ }
 
 /* sidebar css ends */
 
@@ -938,15 +1212,17 @@
 }
 
 .adminlogin {
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: white;
     padding: 25px;
+    margin-top: 100px;
+    box-shadow: 2px 2px 2px 2px gray;
 }
 
 .adminBackgroumnd {
     min-height: 700px;
     height: fit-content;
-    background: skyblue;
+    background: rgb(212, 224, 230);
 }
 
 .admininput {
@@ -1312,6 +1588,136 @@
 }
 
 /* userticket ends */
+
+/* customerorder start */
+.orders_heading {
+    position: sticky;
+    top: 3px;
+    background-color: white;
+    z-index: 60;
+    color: gray;
+    text-align: center;
+    box-shadow: 1px 1px 1px 2px gray;
+}
+
+.customer_orders {
+    margin-top: 12px;
+}
+
+.customer_info, .order_details {
+    border-bottom: 3px solid blue;
+}
+
+.admin_action {
+    text-align: end;
+}
+
+.admin_action_button {
+    margin: 0px 10px 0px 10px;
+}
+
+.action_after_rejection {
+    color: red;
+}
+
+.confirmby {
+    color: blue;
+}
+
+.email {
+    color: green;
+}
+
+.orderid {
+    color: purple;
+}
+
+.admin_button {
+    padding-top: 8px;
+}
+
+.admin_button_for_admin {
+     margin: 0px 10px 0px 10px;
+}
+/* customerorder ends */
+
+/* profile start */
+.info {
+    margin-top: 20px;
+    box-shadow: 5px 5px 5px 5px gray;
+}
+
+.resume {
+    margin-top: 20px;
+    text-align: end;
+}
+
+.name {
+    margin-top: 20px;
+    text-decoration: underline;
+    text-decoration-style: solid;
+    text-decoration-color: rgb(51, 139, 174);
+}
+
+.email:hover {
+    color: blue;
+    cursor: pointer;
+}
+
+.your_profile_heading {
+    text-align: center;
+    box-shadow: 2px 2px 2px 2px gray;
+    position: sticky;
+    top: 2px;
+    background-color: white;
+    margin-top: 90px;
+    z-index: 60;
+}
+
+.profile_data {
+    position: relative;
+    z-index: 50;
+}
+
+.editicon:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    box-shadow: 2px 2px 2px 2px gray;
+}
+
+.complete_Your_profile {
+    margin-top: 10px;
+    text-align: center;
+    box-shadow: 2px 2px 2px 2px gray;
+}
+
+.restraurant_image {
+    width: 100%;
+    max-height: 700px;
+    background-image: url("../Images/restraurant.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 700px;
+    background-position: center;
+}
+/* profile end */
+
+/* footer section start */
+.footer {
+    border: 2px solid black;
+    min-height: 150px;
+    margin-top: 20px;
+    background-color: rgb(229, 222, 222);
+    padding: 20px;
+}
+
+.footer_list {
+    margin-top: 10px;
+}
+.footer_list:hover {
+    cursor: pointer;
+}
+/* footer section end */
 /* Dummy css start */
 
 /* Dummy css end */

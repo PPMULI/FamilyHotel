@@ -8,7 +8,6 @@ import burger from "../Images/Burger.jpg";
 import delicious from "../Images/delicious.jpg";
 import { useNavigate } from "react-router-dom";
 import { MenuItems } from "../menu/MenuItems";
-
 function Home() {
   const navigate = useNavigate();
   return (

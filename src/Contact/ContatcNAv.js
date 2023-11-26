@@ -36,12 +36,12 @@ function ContatcNAv() {
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link contact_nav_items" href="/cartitems">
+                <a class="nav-link contact_nav_items" href="/yourcart">
                   <AddShoppingCart /> Cart
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link contact_nav_items" href="/menucard">
+                <a class="nav-link contact_nav_items" href="/totalmenu">
                   <RestaurantMenuIcon /> Menu
                 </a>
               </li>

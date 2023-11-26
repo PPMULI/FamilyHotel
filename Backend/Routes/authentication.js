@@ -44,7 +44,7 @@ router.post(
         email: req.body.email,
         name: req.body.name,
         address: req.body.address,
-        password: secPass,
+        password: req.body.password,
         contactnumber: req.body.contactnumber,
       });
 
@@ -81,17 +81,21 @@ router.post(
 
     let success = false;
     try {
-      let authenticator = await authentication.findOne({email}) 
+      let authenticator = await authentication.findOne({email, password}) 
 
       if(!authenticator) {
         return res.status(400).json({errors: "hello sorry"})
       }
 
-      const passwordCompare = await bcrypt.compare(password, authenticator.password)
-      if(!passwordCompare)
-      {
-        return res.status(400).json({errors: "hello wrong"})        
-      }
+      console.log(authenticator)
+
+      // const passwordCompare = await bcrypt.compare(password, authenticator.password)
+      // if(!passwordCompare)
+      // {
+      //   return res.status(400).json({errors: "hello wrong"})        
+      // }
+
+      // console.log(passwordCompare)
 
       const data = {
         authenticator: {

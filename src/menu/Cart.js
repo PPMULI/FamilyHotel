@@ -39,8 +39,7 @@ const Cart = ({ product, onAddToCart }) => {
     setState1(state);
   };
 
-  // console.log(productDetails)
-  return (
+   return (
     <>
       
       <div className="col-lg-3">
@@ -109,8 +108,7 @@ const Cart = ({ product, onAddToCart }) => {
         <p>
           {selecteditem &&
             selecteditem.map((value) => {
-              console.log(value);
-
+ 
               return (
                 <>
                   <div class="card items">

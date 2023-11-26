@@ -1,18 +1,36 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebaseFiles/Config";
+
+import { Link, useNavigate } from "react-router-dom";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import Profile from "./Profile";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import hotelcontext from "../hotelcontext/hotelContext";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 function HomeNav2() {
   const navigate = useNavigate();
-  const handleLogout = () => {
-    localStorage.clear();
-    navigate("/login");
-  };
+  const [authUser, setAuthUser] = useState(null);
+  const context = useContext(hotelcontext);
+  const { userSignOut } = context;
+
+  useEffect(() => {
+    const listen = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setAuthUser(user);
+      } else {
+        setAuthUser(null);
+      }
+    });
+
+    return () => {
+      listen();
+    };
+  }, []);
   return (
     <>
       <nav class="navbar navbar-expand-lg">
@@ -37,16 +55,14 @@ function HomeNav2() {
           <div class="collapse navbar-collapse dummynav" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link dummynav_items" aria-current="page" href="/adminhome">
+                <a
+                  class="nav-link dummynav_items"
+                  aria-current="page"
+                  href="/adminhome"
+                >
                   Admin
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link dummynav_items" href="#">
-                  About
-                </a>
-              </li>
-
               <li class="nav-item">
                 <a class="nav-link dummynav_items" href="/contact">
                   Contact
@@ -54,7 +70,7 @@ function HomeNav2() {
               </li>
             </ul>
 
-            {!localStorage.getItem("authtoken") ? (
+            {!localStorage.getItem("email") ? (
               <div className="col-lg-2">
                 <p
                   className="addrestraurant  dummy_menubtn"
@@ -71,7 +87,9 @@ function HomeNav2() {
               <button
                 type="button"
                 id="menu"
-                onClick={handleLogout}
+                onClick={() => {
+                  userSignOut();
+                }}
                 className="btn-outline-light dummy_menubtn"
               >
                 Logout
@@ -79,37 +97,47 @@ function HomeNav2() {
             )}
             <div className="group_icons">
               <span className="icons">
-                <FacebookIcon />
+                <Link
+                  to="https://www.facebook.com/pritam.muli/"
+                  target="_blank"
+                  className="linkonhome"
+                >
+                  <FacebookIcon />
+                </Link>
               </span>
               <span className="icons">
-                <TwitterIcon />
+                <Link
+                  to="https://twitter.com/home"
+                  className="linkonhome"
+                  target="_blank"
+                >
+                  <TwitterIcon />
+                </Link>
               </span>
               <span className="icons">
-                <InstagramIcon />
+                <Link
+                  to="https://www.linkedin.com/in/pritam-muli-92985a204/"
+                  target="_blank"
+                  className="linkonhome"
+                >
+                  <LinkedInIcon />
+                </Link>
               </span>
               <span
                 className="icons"
                 onClick={() => {
-                  navigate("/cartitems");
+                  navigate("/yourcart");
                 }}
               >
                 <AddShoppingCartIcon />
               </span>
               <span
-                className="icons"
-                onClick={() => {
-                  navigate("/favoriteitems");
-                }}
-              >
-                <FavoriteBorderIcon />
-              </span>
-              <span
                 className="icons profile"
                 onClick={() => {
-                  navigate("/cartitems");
+                  navigate("/yourprofile");
                 }}
               >
-                <Profile />
+                <AccountCircleIcon />
               </span>
             </div>
           </div>

@@ -2,1022 +2,834 @@ import React, { useRef, useState } from "react";
 import HotelContext from "./hotelContext";
 import { ToastContainer, toast } from "react-toastify";
 import { MenuItems } from "../menu/MenuItems";
+import { getAuth } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../firebaseFiles/Config";
+import { signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { db } from "../firebaseFiles/Config";
+import {
+  addDoc,
+  collection,
+  getDoc,
+  getDocs,
+  doc,
+  deleteDoc,
+  updateDoc,
+} from "firebase/firestore";
 import "react-toastify/dist/ReactToastify.css";
-import { json } from "react-router-dom";
+
 function HotelState(props) {
-  const [customer, setCustomer] = useState([]);
-  const [total, setTotla] = useState([]);
-  const [data, myData] = useState([]);
-  const [cartItems, setCartItems] = useState([]);
-  const [detaiItem, setDetailItem] = useState([]);
-  const [totalOrderAdmin, setTotalOrderAdmin] = useState([]);
-  const [favouriteItem, setFavouriteItem] = useState([]);
-  const [credentials, setCredentials] = useState({
-    email: "",
-    name: "",
-    contactnumber: "",
-    address: "",
-    password: "",
-  });
-
-  const [raisedTicketStatusAdmin, setraisedTicketStatusAdmin] = useState([]);
-  const [admnTickets, setAdminTickets] = useState([]);
-  const [adminorderStatus, setadminOrderStatus] = useState([]);
-  const [myOrder, setMyOrder] = useState([]);
-  const [product, setProduct] = useState({
-    email: "",
-    productname: "",
-    quantity: "",
-    price: "500",
-    payment: "COD",
-    productId: "",
-    foodID: "",
-    imageurl: "",
-  });
-
-  const [statusOfTicketUpdatedByAdmin, setStatusOfTicketUpdatedByAdmin] =
-    useState([]);
-  const [userticket, setUserticket] = useState([]);
-
-  const [orderstatus, setOrderStatus] = useState([]);
-
-  const [favourite, setFavourite] = useState({
-    email: "",
-    productname: "",
-    quantity: "",
-    price: "500",
-    productId: "",
-    foodID: "",
-    imageurl: "",
-  });
-
-  const [raisedEicketUser, setRaisedticketUser] = useState([]);
-  const [ticketStatus, setTicketStatus] = useState([]);
-  const [raisedticketadmin, setRaisedticketAdmin] = useState([]);
-  const [productDetails, setProductDetails] = useState([]);
+  const navigate = useNavigate();
+  const [YourOrder, setYourOrder] = useState([]);
+  const [dishdetails, setshowDishDetails] = useState([]);
+  const [isUserProfileCreated, setIsUserProfileCreated] = useState([]);
+  const [yourRaisedTicket, setYourRaisedTicket] = useState([]);
+  const [classifyYourOrderByStatus, setClassifyYourOrderByStatus] = useState(
+    []
+  );
+  const [userprofile, setUserProfile] = useState([]);
+  const [profileofuserbyemail, setProfileofuserbyemail] = useState([]);
   const [selecteditem, setSelecteditem] = useState([]);
-  const [dishDetails, setDetails] = useState([]);
-  const [orders, setOrders] = useState({
-    email: localStorage.getItem("email"),
-    orderedfood: customer,
-    status: "pending",
-  });
-
-  const [orderedItem, setOrderedItem] = useState([]);
-  // function on cartitem start
-  const fetchDetails = async () => {
-    const responce = await fetch("http://localhost:5000/api/cart/fetchitems", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-
-      body: JSON.stringify({
-        email: localStorage.getItem("email"),
-      }),
-    });
-    const json = await responce.json();
-
-    setCustomer(json.cart);
-    localStorage.setItem("orderfood1", JSON.stringify(json.cart));
-  };
-
-  const removeItem = async (id) => {
-    const responce = await fetch(
-      `http://localhost:5000/api/cart/deleteitem/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-
-        body: JSON.stringify({
-          email: localStorage.getItem("email"),
-        }),
-      }
-    );
-    const json = await responce.json();
-
-    let newCustomer = customer.filter((cust) => cust._id !== id);
-
-    setCustomer(newCustomer);
-    total_Ammount();
-  };
-
-  const total_Ammount = () => {
-    let final_Ammount = 0;
-    for (let i = 0; i < customer.length; i++) {
-      final_Ammount = final_Ammount + customer[i].price * customer[i].quantity;
-    }
-
-    localStorage.setItem("total_ammount", final_Ammount);
-  };
-
-  let customerOrder = [];
-  {
-    customer.map((value) => {
-      customerOrder.push({
-        id: value.productId,
-        quantity: value.quantity,
-        dish: value.productname,
-      });
-    });
-  }
-  const orderManager = async () => {
-    const { email, orderedfood, status } = orders;
-    const responce = await fetch("http://localhost:5000/api/orders/orders", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-
-      body: JSON.stringify({
-        email: localStorage.getItem("email"),
-        orderedfood: customerOrder,
-        status: orders.status,
-      }),
-    });
-    const json = await responce.json();
-
-    if (json.success) {
-      toast.success("your order is book", {
+  const [dishesInCart, setDishesInCart] = useState([]);
+  const [fetchRaisedTicketByUser, setFetchRaisedTicketByUser] = useState([]);
+  const [cartdishesbyuserDetails, setCartdishesbyuserDetails] = useState([]);
+  const [yourOrderByUserdetails, setyourOrderByUserdetails] = useState([]);
+  const [
+    categoriestheRaisedTicketByStatus,
+    setcategoriestheRaisedTicketByStatus,
+  ] = useState([]);
+  const handleSignup = (auth, email, password) => {
+    if (email == "" || password == "") {
+      toast.error(`All fields are important`, {
         position: "top-center",
         theme: "colored",
       });
-
-      toast.success("Refer my order", {
-        position: "top-center",
-        theme: "colored",
-      });
-    }
-  };
-
-  const checkAuthority = () => {
-    if (!localStorage.getItem("authtoken")) {
-      toast.error(`Please log-in first ${(window.location.href = "/")}`, {
-        position: "top-center",
-        theme: "colored",
-      });
-    }
-    if (localStorage.getItem("authtoken")) {
-      // const myTimeout = setTimeout(myGreeting, 6000);
-    }
-  };
-
-  function myGreeting() {
-    if (localStorage.getItem("authtoken")) {
-      localStorage.clear();
-      alert(
-        toast.error("session Time", {
-          position: "top-center",
-          theme: "colored",
+    } else {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredentials) => {
+          toast.success("Congratulations! You are signup successfully.", {
+            position: "top-center",
+            theme: "colored",
+          });
+          navigate("/login");
         })
-      );
-    }
-  }
-  const restrictUser = () => {
-    if (localStorage.getItem("authtoken")) {
-      toast.error(
-        `Another session is gong on! Please log-out first ${(window.location.href =
-          "/")} `,
-        {
-          position: "top-center",
-          theme: "colored",
-        }
-      );
+        .catch((error) => {
+          toast.error("User Exist", {
+            position: "top-center",
+            theme: "colored",
+          });
+          navigate("/login");
+        });
     }
   };
 
-  const handleSubmit = async (email, name, address, number, password) => {
-    const email1 = document.getElementById("email");
-    const password1 = document.getElementById("password");
-    const address1 = document.getElementById("address");
-    const contactnumber1 = document.getElementById("number");
-    const name1 = document.getElementById("name");
-
-    let error = 0;
-    let succ = 0;
-    // function for checking the length of each field
-    function checkLength(input) {
-      if (input.value.length == 0) {
-        error = 1;
-      } else {
-        succ = 1;
-      }
-    }
-
-    // function call
-    checkLength(contactnumber1);
-    checkLength(email1);
-    checkLength(password1);
-    checkLength(name1);
-    checkLength(address1);
-
-    if (succ == 1 && error == 0) {
-      const responce = await fetch(
-        "http://localhost:5000/api/authenticator/authentication",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-
-          body: JSON.stringify({
-            email: email,
-            password: password,
-            name: name,
-            address: address,
-            contactnumber: number,
-          }),
-        }
-      );
-
-      const json = await responce.json();
-      if (json.success) {
-        toast.success(
-          `Congratulation! Your account is create with email: ${email} ${(window.location.href =
-            "/login")}`,
-          {
-            position: "top-center",
-            theme: "colored",
-          }
-        );
-      } else {
-        toast.error(
-          "You are already created the account eith this credentials",
-          {
-            position: "top-center",
-            theme: "colored",
-          }
-        );
-      }
-    } else {
-      toast.error("All fields are important", {
+  const handleLogin = async (email, password) => {
+    const auth = getAuth();
+    if (email == "" || password == "") {
+      toast.error(`All fields are important`, {
         position: "top-center",
         theme: "colored",
       });
-    }
-  };
-
-  const fetchOrders = async () => {
-    // if (customer.length > 0) {
-    const responce = await fetch(
-      "http://localhost:5000/api/orders/fetchorders",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-
-        body: JSON.stringify({
-          email: localStorage.getItem("email"),
-        }),
-      }
-    );
-    const json = await responce.json();
-
-    setOrderedItem(json.order[0].orderedfood);
-    // }
-  };
-
-  const adminSignup = async (
-    email,
-    name,
-    address,
-    number,
-    password,
-    empID,
-    location,
-    reportsto,
-    JobRole
-  ) => {
-    const email1 = document.getElementById("email");
-    const password1 = document.getElementById("password");
-    const address1 = document.getElementById("address");
-    const contactnumber1 = document.getElementById("number");
-    const name1 = document.getElementById("name");
-    const empid1 = document.getElementById("empid");
-    const location1 = document.getElementById("location");
-    const reportsto1 = document.getElementById("reportsto");
-
-    let error = 0;
-    let succ = 0;
-    // function for checking the length of each field
-    function checkLength(input) {
-      if (input.value.length == 0) {
-        error = 1;
-      } else {
-        succ = 1;
-      }
-    }
-
-    // function call
-    checkLength(contactnumber1);
-    checkLength(email1);
-    checkLength(password1);
-    checkLength(name1);
-    checkLength(address1);
-
-    if (succ == 1 && error == 0) {
-      const responce = await fetch(
-        "http://localhost:5000/api/admin/adminauthentication",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-
-          body: JSON.stringify({
-            email: email,
-            password: password,
-            name: name,
-            address: address,
-            contactnumber: number,
-            reportsto: reportsto,
-            empid: empID,
-            location: location,
-            jobrole: JobRole,
-          }),
-        }
-      );
-
-      const json = await responce.json();
-      if (json.success) {
-        toast.success(
-          `Congratulation! Your account is create with email: ${email} ${(window.location.href =
-            "/login")}`,
-          {
-            position: "top-center",
-            theme: "colored",
-          }
-        );
-      } else {
-        toast.error(
-          "You are already created the account eith this credentials",
-          {
-            position: "top-center",
-            theme: "colored",
-          }
-        );
-      }
     } else {
-      toast.error("All fields are important", {
-        position: "top-center",
-        theme: "colored",
-      });
-    }
-  };
-
-  const adminLogin = async (email, password) => {
-    const email1 = document.getElementById("email");
-    const password1 = document.getElementById("password");
-
-    let error = 0;
-    let succ = 0;
-    // function for checking the length of each field
-    function checkLength(input) {
-      if (input.value.length == 0) {
-        error = 1;
-      } else {
-        succ = 1;
-      }
-    }
-
-    // function call
-    checkLength(email1);
-    checkLength(password1);
-
-    if (succ == 1 && error == 0) {
-      const responce = await fetch(
-        "http://localhost:5000/api/admin/adminlogin",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-
-          body: JSON.stringify({
-            email: email,
-            password: password,
-          }),
-        }
-      );
-
-      const json = await responce.json();
-
-      if (json.success) {
-        toast.success(`You are log-in as ${email}  }`, {
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        // Login successful
+        toast.success("Congratulations! You are logged-in", {
           position: "top-center",
           theme: "colored",
         });
+        localStorage.setItem("accesstoken", auth.currentUser.accessToken);
+        localStorage.setItem("email", auth.currentUser.email);
 
-        localStorage.setItem("authtoken", json.authtoken);
-        localStorage.setItem("email", json.email);
-      } else {
-        toast.error(
-          "You are already created the account eith this credentials",
-          {
+        navigate("/");
+      } catch (error) {
+        console.log(error);
+        alert(
+          toast.error("Invalid Credentials!", {
             position: "top-center",
             theme: "colored",
-          }
+          })
         );
+        console.error("Error signing in:", error);
+        // Handle login error, display an error message, etc.
       }
-    } else {
-      toast.error("All fields are important", {
-        position: "top-center",
-        theme: "colored",
-      });
     }
   };
 
+  const userSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        toast.success("Your session is log-out", {
+          position: "top-center",
+          theme: "colored",
+        });
+        localStorage.clear();
+        navigate("/");
+      })
+      .catch((error) => console.log(error));
+  };
+
   const YourItems = (category) => {
+    navigate("/menucard");
     const items = MenuItems.filter((num) => {
       return num.food.category == category;
     });
 
     setSelecteditem(items);
+
     localStorage.setItem("category", category.toUpperCase());
     return items;
   };
 
-  const onItemDetails = (productID) => {
+  const reducer = (state, action) => {
+    if (state >= 1) {
+      if (action.type == "INCREAMENT") {
+        return state + 1;
+      }
+
+      if (action.type === "DECREAMENT") {
+        return state - 1;
+      }
+    } else if (state < 1) {
+      state = state + 1;
+      return state;
+    }
+  };
+
+  // function to add to cart
+  const AddToCartCollectionRef = collection(db, "cart");
+
+  const addData = (addToCart) => {
+    return addDoc(AddToCartCollectionRef, addToCart);
+  };
+  const handleSubmit = async (
+    email,
+    dishname,
+    dishcategory,
+    dishid,
+    quantity,
+    price
+  ) => {
+    handle_Actions();
+    if (entry == 0) {
+      toast.error("Please login first", {
+        position: "top-center",
+        theme: "colored",
+      });
+      const myTimeOut = setTimeout(timeout, 1000);
+    } else {
+      const AddToCartNewDish = {
+        email,
+        dishname,
+        dishcategory,
+        dishid,
+        quantity,
+        price,
+      };
+
+      try {
+        await addData(AddToCartNewDish);
+        toast.success(`Your Product ${dishname} is added into cart`, {
+          position: "top-center",
+          theme: "colored",
+        });
+      } catch (error) {
+        console.log("error", error);
+      }
+    }
+  };
+
+  // function for fetchDishes
+  const getAllDishesInCart = () => {
+    return getDocs(AddToCartCollectionRef);
+  };
+
+  const getDishInCart = async () => {
+    const data = await getAllDishesInCart();
+    setDishesInCart(
+      data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }))
+    );
+  };
+
+  // fetch dishes in cart by user details
+  const dishesInCart_by_user_details = async (email) => {
+    const items = dishesInCart.filter((cartdishes) => {
+      return cartdishes.email == email;
+    });
+
+    setCartdishesbyuserDetails(items);
+    return items;
+  };
+
+  const deleteProductIn_Cart = (id, dishname) => {
+    const productDoc = doc(db, "cart", id);
+    if (productDoc) {
+      toast.success(`Your Product ${dishname} is removed from cart`, {
+        position: "top-center",
+        theme: "colored",
+      });
+    }
+    return deleteDoc(productDoc);
+  };
+
+  const deleteDishesInCart = async (id) => {
+    await deleteProductIn_Cart(id);
+    getDishInCart();
+  };
+  // product details
+  const product_details = async (productID) => {
     const items = MenuItems.filter((products) => {
       return products.food.id == productID;
     });
 
-    setProductDetails(items);
-    // localStorage.setItem("category", category.toUpperCase());
+    setshowDishDetails(items);
     return items;
   };
 
-  const handleAddToCart = (product) => {
-    setCartItems([...cartItems, product]);
-    setDetailItem([product]);
-    data.push({ product });
-    localStorage.setItem("productImage", product.food.image);
-    localStorage.setItem("productID", product.food.id);
-    localStorage.setItem("foodID", product.food.foodId);
-    localStorage.setItem("foodname", product.food.knownAs);
-    localStorage.setItem("foodid", product.food.foodId);
-    localStorage.setItem("orderfood", JSON.stringify(data));
-    handleCart();
+  let entry = 0;
+  const timeout = () => {};
+  const handle_Actions = () => {
+    if (localStorage.getItem("email")) {
+      entry = 1;
+    } else {
+      entry = 0;
+    }
+  };
+  // Buy the product
+  const orderCollectionRef = collection(db, "orders");
+
+  const addOrdered_Product = (neworder) => {
+    return addDoc(orderCollectionRef, neworder);
+  };
+  const Buy_the_product = async (
+    email,
+    dishname,
+    dishcategory,
+    dishid,
+    quantity,
+    status,
+    price,
+    reasonofrejection,
+    actionby
+  ) => {
+    handle_Actions();
+    if (entry == 0) {
+      toast.error("Please login first", {
+        position: "top-center",
+        theme: "colored",
+      });
+      const myTimeOut = setTimeout(timeout, 1000);
+    } else {
+      let orderOn = new Date();
+      const newbook = {
+        email,
+        dishname,
+        dishcategory,
+        dishid,
+        quantity,
+        status,
+        orderOn,
+        actionby,
+        price,
+        reasonofrejection,
+      };
+      try {
+        await addOrdered_Product(newbook);
+
+        toast.success(`Thank you for Purchase ${dishname}`, {
+          position: "top-center",
+          theme: "colored",
+        });
+      } catch (error) {
+        console.log("error", error);
+      }
+    }
   };
 
-  const handleCart = async (e) => {
-    const {
-      email,
-      productname,
-      quantity,
-      price,
-      payment,
-      productId,
-      foodID,
-      imageurl,
-    } = product;
+  const getAllDishesThatYouBuy = () => {
+    return getDocs(orderCollectionRef);
+  };
 
-    let orderquantity = 1;
-    if (localStorage.getItem("quantity1")) {
-      return quantity;
-    }
+  const getDishThat_You_Buy = async () => {
+    const data = await getAllDishesThatYouBuy();
+    setYourOrder(
+      data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }))
+    );
+  };
 
-    const responce = await fetch("http://localhost:5000/api/cart/cartitems", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-
-      body: JSON.stringify({
-        email: localStorage.getItem("email"),
-        productname: localStorage.getItem("foodname"),
-        quantity: orderquantity,
-        // quantity: 1,
-        price: product.price,
-        payment: product.payment,
-        imageurl: localStorage.getItem("productImage"),
-        productId: localStorage.getItem("productID"),
-        foodID: localStorage.getItem("foodid"),
-      }),
+  const Categorires_orders_by_status = async (status) => {
+    navigate("/customerorderbystatus");
+    const items = YourOrder.filter((cartdishes) => {
+      return cartdishes.status == status;
     });
 
-    const json = await responce.json();
-    if (!json.success) {
-      alert(
-        toast.error("Something wents wrong", {
-          position: "top-center",
-          theme: "colored",
-        })
-      );
-    }
+    setClassifyYourOrderByStatus(items);
+    return items;
+  };
+  const UserOrder_by_user_details = async (email) => {
+    const items = YourOrder.filter((cartdishes) => {
+      return cartdishes.email == email;
+    });
 
-    if (json.success) {
-      localStorage.removeItem("foodID");
-      localStorage.removeItem("productID");
-      localStorage.removeItem("foodname");
-      localStorage.removeItem("foodid");
-      localStorage.removeItem("productID");
-      localStorage.removeItem("quantity1");
-      localStorage.removeItem("productImage");
-      alert(
-        toast.success("Item is successfully added", {
-          position: "top-center",
-          theme: "colored",
-        })
-      );
-    }
+    setyourOrderByUserdetails(items);
+    return items;
   };
 
-  const addToFavourite = (product) => {
-    setCartItems([...cartItems, product]);
-    setDetailItem([product]);
-    data.push({ product });
-    localStorage.setItem("productImage", product.food.image);
-    localStorage.setItem("productID", product.food.id);
-    localStorage.setItem("foodID", product.food.foodId);
-    localStorage.setItem("foodname", product.food.knownAs);
-    localStorage.setItem("foodid", product.food.foodId);
-    handleFavourite();
-  };
+  const updateOrdersStatusInDatabase = async (
+    documentId,
+    status,
+    reasonofrejection,
+    ActionBy
+  ) => {
+    try {
+      // Reference to the specific document
+      const orderDocRef = doc(orderCollectionRef, documentId);
 
-  const handleFavourite = async (e) => {
-    const { email, productname, price, payment, productId, foodID, imageurl } =
-      product;
-    const responce = await fetch(
-      "http://localhost:5000/api/favourite/addtofavourite",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      // Update the status field of the specific document
 
-        body: JSON.stringify({
-          email: localStorage.getItem("email"),
-          productname: localStorage.getItem("foodname"),
-          price: product.price,
-          payment: product.payment,
-          imageurl: localStorage.getItem("productImage"),
-          productId: localStorage.getItem("productID"),
-          foodID: localStorage.getItem("foodid"),
-        }),
+      const confurmaction = prompt(
+        "Are you really want to update? If tes then enter Email"
+      );
+
+      if (confurmaction == localStorage.getItem("email")) {
+        await updateDoc(orderDocRef, {
+          status: status,
+          reasonofrejection: reasonofrejection,
+          actionby: ActionBy, // Set the status to "deliver"
+        });
+        toast.success(`Congractulation! Your status is updated`, {
+          position: "top-center",
+          theme: "colored",
+        });
+      } else {
+        toast.error(`UnAutherised user`, {
+          position: "top-center",
+          theme: "colored",
+        });
       }
-    );
-
-    const json = await responce.json();
-    if (!json.success) {
-      alert(
-        toast.error("Something wents wrong", {
-          position: "top-center",
-          theme: "colored",
-        })
-      );
-    }
-
-    if (json.success) {
-      localStorage.removeItem("foodID");
-      localStorage.removeItem("productID");
-      localStorage.removeItem("foodname");
-      localStorage.removeItem("foodid");
-      localStorage.removeItem("productID");
-      localStorage.removeItem("quantity1");
-      localStorage.removeItem("productImage");
-      alert(
-        toast.success("Item is added in favourite list", {
-          position: "top-center",
-          theme: "colored",
-        })
-      );
+    } catch (error) {
+      console.error("Error updating status:", error);
     }
   };
 
-  //fetch favourite list
-  const fetchFavouriteItems = async () => {
-    const responce = await fetch(
-      "http://localhost:5000/api/favourite/fetchfavouriteitems",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-
-        body: JSON.stringify({
-          email: localStorage.getItem("email"),
-        }),
-      }
+  const handleUpdateOrderButtonClick_forAdmin = (
+    documentId,
+    status,
+    reasonofrejection,
+    Actionby
+  ) => {
+    // Call the function to update the status in the database
+    updateOrdersStatusInDatabase(
+      documentId,
+      status,
+      reasonofrejection,
+      Actionby
     );
-    const json = await responce.json();
-
-    setFavouriteItem(json.favourite);
-    // localStorage.setItem("orderfood1", JSON.stringify(json.cart));
   };
 
-  const removeFavouriteItem = async (id) => {
-    const responce = await fetch(
-      `http://localhost:5000/api/favourite/deletefavouriteitem/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-
-        body: JSON.stringify({
-          email: localStorage.getItem("email"),
-        }),
-      }
-    );
-    const json = await responce.json();
-
-    let newFavouriteItem = favouriteItem.filter((cust) => cust._id !== id);
-
-    setFavouriteItem(newFavouriteItem);
+  const handleShiftButtonClick = (docID, status, actionby) => {
+    updateOrdersStatusInDatabase_ForAdmin(docID, status, actionby);
   };
 
+  const updateOrdersStatusInDatabase_ForAdmin = async (
+    docID,
+    status,
+    actionby
+  ) => {
+    try {
+      // Reference to the specific document
+      const orderDocRef = doc(orderCollectionRef, docID);
+
+      // Update the status field of the specific document
+      await updateDoc(orderDocRef, {
+        status: status,
+        actionby: actionby, // Set the status to "deliver"
+      });
+      toast.success(`Congractulation! Your status is updated`, {
+        position: "top-center",
+        theme: "colored",
+      });
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  };
+  const cancel_Your_Order = (id, dishname) => {
+    const productDoc = doc(db, "orders", id);
+    if (productDoc) {
+      toast.success(`Your order ${dishname} is Cancel`, {
+        position: "top-center",
+        theme: "colored",
+      });
+    }
+    return deleteDoc(productDoc);
+  };
+
+  const Cancel_The_Order = async (id) => {
+    await cancel_Your_Order(id);
+    getDishThat_You_Buy();
+  };
+  // conatct for or raised ticket start
+  const raisedTicketCollectionRef = collection(db, "RaisedTicket");
+
+  const addRaisedTicket = (newlyRaisedTicket) => {
+    return addDoc(raisedTicketCollectionRef, newlyRaisedTicket);
+  };
   const handleContactForm = async (
     email,
-    name,
-    number,
-    subject,
-    message,
-    status
+    actionby,
+    concern,
+    contactnumber,
+    fullname,
+    reasonofissue,
+    solution,
+    status,
+    subject
   ) => {
-    const email1 = document.getElementById("email");
-    const contactnumber1 = document.getElementById("number");
-    const name1 = document.getElementById("name");
-    const subject1 = document.getElementById("subject");
-    const message1 = document.getElementById("message");
+    handle_Actions()
+    if (entry == 0) {
+      toast.error("Please login first", {
+        position: "top-center",
+        theme: "colored",
+      });
+      const myTimeOut = setTimeout(timeout, 1000);
+    } else {
+      const newlyRaisedTicket = {
+        email,
+        actionby,
+        concern,
+        contactnumber,
+        fullname,
+        reasonofissue,
+        solution,
+        status,
+        subject,
+      };
 
-    let error = 0;
-    let succ = 0;
-    // function for checking the length of each field
-    function checkLength(input) {
-      if (input.value.length == 0) {
-        error = 1;
-      } else {
-        succ = 1;
-      }
-    }
-
-    // function call
-    checkLength(contactnumber1);
-    checkLength(email1);
-    checkLength(name1);
-    checkLength(subject1);
-    checkLength(message1);
-
-    if (succ == 1 && error == 0) {
-      const responce = await fetch(
-        "http://localhost:5000/api/contact/contactform",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-
-          body: JSON.stringify({
-            email: localStorage.getItem("email"),
-            name: name,
-            contactnumber: number,
-            subject: subject,
-            message: message,
-            status: status,
-          }),
-        }
-      );
-
-      const json = await responce.json();
-      if (json.success) {
+      try {
+        await addRaisedTicket(newlyRaisedTicket);
         toast.success(
-          `Congratulation! You are successfully raise the ticket}`,
+          `Your ticket is Raised. Our Executive will connect with you shortly`,
           {
             position: "top-center",
             theme: "colored",
           }
         );
-
-        toast.success(`We will connect with you with in 24 hrs`, {
-          position: "top-center",
-          theme: "colored",
-        });
-      } else {
-        toast.error("Something wents wrong", {
-          position: "top-center",
-          theme: "colored",
-        });
+      } catch (error) {
+        console.log("error", error);
       }
-    } else {
-      toast.error("All fields are important", {
+    }
+  };
+
+  // fetch raised ticket
+
+  const getAllRaisedTickets = () => {
+    return getDocs(raisedTicketCollectionRef);
+  };
+
+  const getRaisedTicketsByUser = async () => {
+    const data = await getAllRaisedTickets();
+    setYourRaisedTicket(
+      data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }))
+    );
+  };
+  const handleRaised_Ticket_ButtonClick = (
+    docID,
+    status,
+    actionby,
+    reasonofissue,
+    solution
+  ) => {
+    Update_Raised_ticket_ForAdmin(
+      docID,
+      status,
+      actionby,
+      reasonofissue,
+      solution
+    );
+  };
+
+  const Update_Raised_ticket_ForAdmin = async (
+    docID,
+    status,
+    actionby,
+    reasonofissue,
+    solution
+  ) => {
+    try {
+      // Reference to the specific document
+      const orderDocRef = doc(raisedTicketCollectionRef, docID);
+
+      // Update the status field of the specific document
+      await updateDoc(orderDocRef, {
+        status: status,
+        actionby: actionby,
+        reasonofissue: reasonofissue,
+        solution: solution, // Set the status to "deliver"
+      });
+      toast.success(`Congractulation! Your status is updated`, {
+        position: "top-center",
+        theme: "colored",
+      });
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  };
+  const RaisedTicket_BY_User = (email) => {
+    const items = yourRaisedTicket.filter((num) => {
+      return num.email == email;
+    });
+
+    setFetchRaisedTicketByUser(items);
+    return items;
+  };
+
+  const cancel_Your_RaisedTicket = (id) => {
+    const productDoc = doc(db, "RaisedTicket", id);
+    if (productDoc) {
+      toast.success(`Your Ticket is Cancel`, {
+        position: "top-center",
+        theme: "colored",
+      });
+    }
+    return deleteDoc(productDoc);
+  };
+
+  const Cancel_The_RaisedTicket = async (id) => {
+    await cancel_Your_RaisedTicket(id);
+    RaisedTicket_BY_User();
+  };
+
+  const categoriesRaisedTicketsByStatus = (status) => {
+    navigate("/customerticketbystatus");
+    const items = yourRaisedTicket.filter((num) => {
+      return num.status == status;
+    });
+
+    setcategoriestheRaisedTicketByStatus(items);
+    return items;
+  };
+
+  // user profile start
+  const profile_collection_ref = collection(db, "user_profile");
+
+  const addUser_Profile = (newUserProfile) => {
+    return addDoc(profile_collection_ref, newUserProfile);
+  };
+  const manage_profile = async (
+    email,
+    fullname,
+    gender,
+    contactnumber,
+    isAdmin,
+    address1,
+    address2,
+    district,
+    state,
+    pincode,
+    applyasadmin
+  ) => {
+    const newUserProfile = {
+      email,
+      fullname,
+      gender,
+      contactnumber,
+      isAdmin,
+      address1,
+      address2,
+      district,
+      state,
+      pincode,
+      applyasadmin,
+    };
+
+    try {
+      await addUser_Profile(newUserProfile);
+      toast.success(`Your Profie is register`, {
+        position: "top-center",
+        theme: "colored",
+      });
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  const getAllUserProfileData = () => {
+    return getDocs(profile_collection_ref);
+  };
+
+  const getProfileOfAllUser = async () => {
+    const data = await getAllUserProfileData();
+    setUserProfile(
+      data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }))
+    );
+  };
+
+  // Reject the user as admin
+  const RejectAsAdmin = (docID, status, actionby, reasonofrejection) => {
+    RejectTheUserAsAdmin(docID, status, actionby, reasonofrejection);
+  };
+
+  const RejectTheUserAsAdmin = async (
+    docID,
+    status,
+    actionby,
+    reasonofrejection
+  ) => {
+    try {
+      // Reference to the specific document
+      const orderDocRef = doc(profile_collection_ref, docID);
+
+      // Update the status field of the specific document
+      await updateDoc(orderDocRef, {
+        status: status,
+        actionby: actionby,
+        reasonofrejection: reasonofrejection, // Set the status to "deliver"
+      });
+      toast.success(`Congractulation! Your status is updated`, {
+        position: "top-center",
+        theme: "colored",
+      });
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  };
+
+  // Reject the user as admin
+  const MarkAsAdmin = (docID, isAdmin, actionby) => {
+    MArkTheUserAsAdmin(docID, isAdmin, actionby);
+  };
+
+  const MArkTheUserAsAdmin = async (docID, isAdmin, actionby) => {
+    try {
+      // Reference to the specific document
+      const orderDocRef = doc(profile_collection_ref, docID);
+
+      // Update the status field of the specific document
+      await updateDoc(orderDocRef, {
+        isAdmin: isAdmin,
+        actionby: actionby, // Set the status to "deliver"
+      });
+      toast.success(`Congractulation! Your status is updated`, {
+        position: "top-center",
+        theme: "colored",
+      });
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  };
+
+  const fetct_user_profile = async (email) => {
+    const items = userprofile.filter((profile) => {
+      return profile.email == email;
+    });
+
+    setProfileofuserbyemail(items);
+    setIsUserProfileCreated(items);
+    return items;
+  };
+
+  const UpdateUserProfile = (
+    docID,
+    updatefullname,
+    updateaddress1,
+    updateaddress2,
+    updatedistrict,
+    updatepincode,
+    updatestate
+  ) => {
+    UpdateTheProfile(
+      docID,
+      updatefullname,
+      updateaddress1,
+      updateaddress2,
+      updatedistrict,
+      updatepincode,
+      updatestate
+    );
+  };
+  const UpdateTheProfile = async (
+    docID,
+    updatefullname,
+    updateaddress1,
+    updateaddress2,
+    updatedistrict,
+    updatepincode,
+    updatestate
+  ) => {
+    try {
+      // Reference to the specific document
+      const orderDocRef = doc(profile_collection_ref, docID);
+
+      // Update the status field of the specific document
+
+      await updateDoc(orderDocRef, {
+        fullname: updatefullname,
+        address1: updateaddress1,
+        address2: updateaddress2,
+        district: updatedistrict,
+        pincode: updatepincode,
+        state: updatestate,
+        // Set the status to "deliver"
+      });
+      toast.success(`Congractulation! Your status is updated`, {
+        position: "top-center",
+        theme: "colored",
+      });
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  };
+
+  const checkAuthority = () => {
+    if (!localStorage.getItem("email")) {
+      navigate("/login");
+      toast.error("Please login first", {
         position: "top-center",
         theme: "colored",
       });
     }
   };
-
-  const yourOrder = async () => {
-    const responce = await fetch(
-      "http://localhost:5000/api/orders/fetchorders",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-
-        body: JSON.stringify({
-          email: localStorage.getItem("email"),
-        }),
-      }
-    );
-    const json = await responce.json();
-    setMyOrder(json.order);
-  };
-
-  const handleUpdateAdmin = (orderId, status, reasonOfRejection) => {
-    // Replace 'yourUpdateEndpoint' with your actual API endpoint for updating orders
-    const responce = fetch(
-      `http://localhost:5000/api/orders/updateorder/${orderId}`,
-      {
-        method: "PUT", // Use the appropriate HTTP method (PUT, POST, etc.)
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          status: status,
-          reasonofrejection: reasonOfRejection,
-        }), // Replace 'updatedStatus' with the new status value
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response from the server
-        console.log("Order updated:", data);
-        // You may want to update your component's state or trigger a refresh here
-      })
-      .catch((error) => {
-        console.error("Error updating order:", error);
-      });
-  };
-
-  const fetchOrderAdmin = async () => {
-    const responce = await fetch(
-      "http://localhost:5000/api/orders/fetchOrderAdmin",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const json = await responce.json();
-    setTotalOrderAdmin(json.order);
-  };
-
-  const fetchUpdatedstatusAdmin = (orderStatus) => {
-    const items = totalOrderAdmin.filter((num) => {
-      return num.status == orderStatus;
-    });
-
-    setadminOrderStatus(items);
-    return items;
-  };
-
-  const fetch_Raised_Ticket_admin = async (ticketstatus) => {
-    const responce = await fetch(
-      "http://localhost:5000/api/contact/fetchconcernadmin",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const json = await responce.json();
-    setRaisedticketAdmin(json.order);
-  };
-
-  const ref = useRef(null);
 
   const checkAdmin = () => {
-    if (!localStorage.getItem("authtoken")) {
-      toast.error(`Please log-in first ${(window.location.href = "/login")}`, {
+    checkAuthority();
+    if (localStorage.getItem("email")) {
+      if (!localStorage.getItem("email").endsWith("@tcs.com")) {
+        toast.error("Entry Restricted", {
+          position: "top-center",
+          theme: "colored",
+        });
+        navigate("/");
+      }
+    }
+  };
+
+  const resrictONAuthentication = () => {
+    if (localStorage.getItem("email")) {
+      toast.error("Another sesson is going on", {
         position: "top-center",
         theme: "colored",
       });
+      navigate("/");
     }
-
-    if (!localStorage.getItem("email").endsWith("@tcs.com")) {
-      toast.error(
-        `Access denied ${(window.location.href = "/")}`,
-        (window.location.href = "/"),
-        {
-          position: "top-center",
-          theme: "colored",
-        }
-      );
-    }
-    // if (localStorage.getItem("authtoken")) {
-    // const myTimeout = setTimeout(myGreeting, 6000);
-    // }
-  };
-
-  const fetchuserticket = async () => {
-    const responce = await fetch(
-      "http://localhost:5000/api/contact/fetchusertickets",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-
-        body: JSON.stringify({
-          email: localStorage.getItem("email"),
-        }),
-      }
-    );
-    const json = await responce.json();
-    setUserticket(json.concern);
-  };
-
-  const fetchusertickets = (userTicketStatus) => {
-    const user_raised_tickets = userticket.filter((num) => {
-      return num.status == userTicketStatus;
-    });
-
-    setRaisedticketUser(user_raised_tickets);
-    return user_raised_tickets;
-  };
-
-  const YourOrderStatus = (orderStatus) => {
-    const items = myOrder.filter((num) => {
-      return num.status == orderStatus;
-    });
-
-    setOrderStatus(items);
-    return items;
-  };
-
-  const cancel_orderItem = async (id) => {
-    const responce = await fetch(
-      `http://localhost:5000/api/orders/cancelorder/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-
-        body: JSON.stringify({
-          email: localStorage.getItem("email"),
-        }),
-      }
-    );
-    const json = await responce.json();
-
-    let YourOrdersNew = myOrder.filter((cust) => cust._id !== id);
-
-    setMyOrder(YourOrderStatus);
-  };
-
-  const handleDelivaryAdmin = (orderId, status, deliverby) => {
-    // Replace 'yourUpdateEndpoint' with your actual API endpoint for updating orders
-    const responce = fetch(
-      `http://localhost:5000/api/orders/updateorder/${orderId}`,
-      {
-        method: "PUT", // Use the appropriate HTTP method (PUT, POST, etc.)
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ status: status, deliverby: deliverby }), // Replace 'updatedStatus' with the new status value
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response from the server
-        console.log("Order updated:", data);
-        // You may want to update your component's state or trigger a refresh here
-      })
-      .catch((error) => {
-        console.error("Error updating order:", error);
-      });
-  };
-
-  const ticketStatusAdmin = async () => {
-    const responce = await fetch(
-      "http://localhost:5000/api/contact/fetchconcernadmin",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const json = await responce.json();
-    setraisedTicketStatusAdmin(json.order);
-  };
-
-  const TicketStatusByAdmin = (StatusOfTheTicket) => {
-    const items = raisedTicketStatusAdmin.filter((num) => {
-      return num.status == StatusOfTheTicket;
-    });
-
-    setStatusOfTicketUpdatedByAdmin(items);
-
-    return items;
-  };
-
-  const updated_Ticket_By_Admin = (
-    ticketID,
-    ticketStatus,
-    resolveBy,
-    reasonOfIssue,
-    SolutionofIssue
-  ) => {
-    // Replace 'yourUpdateEndpoint' with your actual API endpoint for updating orders
-    const responce = fetch(
-      `http://localhost:5000/api/contact/updateticketadmin/${ticketID}`,
-      {
-        method: "PUT", // Use the appropriate HTTP method (PUT, POST, etc.)
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          status: ticketStatus,
-          resolveby: resolveBy,
-          reason: reasonOfIssue,
-          solution: SolutionofIssue,
-        }), // Replace 'updatedStatus' with the new status value
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response from the server
-        console.log("Order updated:", data);
-        // You may want to update your component's state or trigger a refresh here
-      })
-      .catch((error) => {
-        console.error("Error updating order:", error);
-      });
   };
   return (
     <>
       <HotelContext.Provider
         value={{
-          updated_Ticket_By_Admin,
-          raisedTicketStatusAdmin,
-          setraisedTicketStatusAdmin,
-          TicketStatusByAdmin,
-          setStatusOfTicketUpdatedByAdmin,
-          statusOfTicketUpdatedByAdmin,
-          cancel_orderItem,
-          ticketStatusAdmin,
-          handleDelivaryAdmin,
-          fetchusertickets,
-          raisedEicketUser,
-          setRaisedticketUser,
-          fetchuserticket,
-          userticket,
-          setUserticket,
-          customer,
-          fetchUpdatedstatusAdmin,
-          ticketStatus,
+          resrictONAuthentication,
           checkAdmin,
-          setTicketStatus,
-          fetch_Raised_Ticket_admin,
-          setRaisedticketAdmin,
-          raisedticketadmin,
-          adminorderStatus,
-          setadminOrderStatus,
-          orderstatus,
-          setOrderStatus,
-          fetchOrderAdmin,
-          setTotalOrderAdmin,
-          YourOrderStatus,
-          myOrder,
-          setMyOrder,
-          totalOrderAdmin,
-          yourOrder,
-          setCustomer,
-          handleUpdateAdmin,
-          adminLogin,
-          fetchDetails,
-          orderManager,
-          restrictUser,
           checkAuthority,
-          removeItem,
-          handleAddToCart,
-          total_Ammount,
-          addToFavourite,
-          handleSubmit,
-          fetchOrders,
-          orderedItem,
-          adminSignup,
-          setOrderedItem,
-          YourItems,
+          UpdateUserProfile,
+          isUserProfileCreated,
+          RejectAsAdmin,
+          MarkAsAdmin,
+          fetct_user_profile,
+          profileofuserbyemail,
+          setProfileofuserbyemail,
+          getProfileOfAllUser,
+          userprofile,
+          setUserProfile,
+          fetct_user_profile,
+          manage_profile,
+          handleShiftButtonClick,
+          Categorires_orders_by_status,
+          handleRaised_Ticket_ButtonClick,
+          handleUpdateOrderButtonClick_forAdmin,
+          classifyYourOrderByStatus,
+          setClassifyYourOrderByStatus,
+          categoriesRaisedTicketsByStatus,
+          categoriestheRaisedTicketByStatus,
+          setcategoriestheRaisedTicketByStatus,
+          RaisedTicket_BY_User,
+          fetchRaisedTicketByUser,
+          getDishThat_You_Buy,
+          setFetchRaisedTicketByUser,
+          getRaisedTicketsByUser,
+          yourRaisedTicket,
+          setYourRaisedTicket,
+          handleContactForm,
+          Cancel_The_RaisedTicket,
+          yourOrderByUserdetails,
+          cancel_Your_Order,
+          setyourOrderByUserdetails,
+          UserOrder_by_user_details,
+          YourOrder,
+          setYourOrder,
+          deleteProductIn_Cart,
+          dishesInCart_by_user_details,
+          setCartdishesbyuserDetails,
+          cartdishesbyuserDetails,
+          handleLogin,
+          reducer,
+          getDishInCart,
+          dishesInCart,
+          setDishesInCart,
           selecteditem,
           setSelecteditem,
-          onItemDetails,
-          productDetails,
-          setProductDetails,
-          favouriteItem,
-          setFavouriteItem,
-          removeFavouriteItem,
-          fetchFavouriteItems,
-          handleContactForm,
+          userSignOut,
+          handleSignup,
+          YourItems,
+          Buy_the_product,
+          handleSubmit,
+          dishdetails,
+          setshowDishDetails,
+          product_details,
         }}
       >
         {props.children}
