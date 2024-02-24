@@ -39,6 +39,7 @@ function TotalOrders() {
 
   return (
     <>
+    <h1>I am dummy</h1>
       {totalOrderAdmin &&
         totalOrderAdmin.map((value) => {
           return (
